@@ -24,6 +24,7 @@ public class Temperature {
             Double input = scanner.nextDouble();
             scanner.nextLine();
             temperatures.add(input);
+            char choice;
 
             sum += input;
             avg = sum / temperatures.size();
@@ -31,8 +32,6 @@ public class Temperature {
             if (input > maxTemperature) {
                 maxTemperature = input;
             }
-
-            char choice;
 
             do {
                 System.out.println("Czy chcesz podać kolejną temperature? y/n");
