@@ -62,6 +62,5 @@ public class Calculator {
                 ? "Wynik był dodatni"
                 : "Wynik był ujemny";
         System.out.println(positiveOrNegative);
-
     }
 }
