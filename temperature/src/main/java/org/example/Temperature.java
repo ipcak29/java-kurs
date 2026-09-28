@@ -38,11 +38,9 @@ public class Temperature {
                     System.out.println("Błedne dane");
                 }
             } while (choice != 'y' && choice != 'n');
-
-            if (choice == 'n') {
                 System.out.println("Koniec programu");
                 break;
-            }
+
         }
         System.out.println("Średnia temperatura" + avg);
         System.out.println("Najwyższa temperatura" + maxTemperature);
@@ -51,6 +49,5 @@ public class Temperature {
                 ? "Średnia temperatura jest powyżej zera"
                 : "Średnia temperatura jest równa zeru lub poniżej zera";
         System.out.println(aboveOrBelow);
-
     }
 }
