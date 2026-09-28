@@ -14,6 +14,7 @@ public class Temperature {
 
         while (true) {
             System.out.println("Podaj temperature w °C:");
+
             if (!scanner.hasNextDouble()) {
                 System.out.println("Błędne dane, ponów próbe ");
                 scanner.nextLine();
@@ -26,11 +27,13 @@ public class Temperature {
 
             sum += input;
             avg = sum / temperatures.size();
+
             if (input > maxTemperature) {
                 maxTemperature = input;
             }
 
             char choice;
+
             do {
                 System.out.println("Czy chcesz podać kolejną temperature? y/n");
                 choice = scanner.nextLine().charAt(0);
@@ -38,7 +41,6 @@ public class Temperature {
                 if (choice != 'y' && choice != 'n') {
                     System.out.println("Błedne dane");
                 }
-
             } while (choice != 'y' && choice != 'n');
 
             System.out.println("Koniec programu");
