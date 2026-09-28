@@ -11,14 +11,15 @@ public class Temperature {
         double avg;
         double sum = 0;
         double maxTemperature = Double.NEGATIVE_INFINITY;
-        while (true) {
 
+        while (true) {
             System.out.println("Podaj temperature w °C:");
             if (!scanner.hasNextDouble()) {
                 System.out.println("Błędne dane, ponów próbe ");
                 scanner.nextLine();
                 continue;
             }
+
             Double input = scanner.nextDouble();
             scanner.nextLine();
             temperatures.add(input);
@@ -37,11 +38,13 @@ public class Temperature {
                 if (choice != 'y' && choice != 'n') {
                     System.out.println("Błedne dane");
                 }
-            } while (choice != 'y' && choice != 'n');
-                System.out.println("Koniec programu");
-                break;
 
+            } while (choice != 'y' && choice != 'n');
+
+            System.out.println("Koniec programu");
+            break;
         }
+
         System.out.println("Średnia temperatura" + avg);
         System.out.println("Najwyższa temperatura" + maxTemperature);
 
