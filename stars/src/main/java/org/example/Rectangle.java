@@ -42,31 +42,39 @@ public class Rectangle {
 //            System.out.println();
 //        }
 
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
+//
+//        System.out.println("Podaj nowe hasło: ");
+//        String password = scanner.nextLine();
+//
+//        boolean unique = true;
+//
+//        for (int i = 0; i+1 < password.length(); i++) {
+//
+//            for (int j = i+1; j < password.length(); j++) {
+//
+//                if (password.charAt(i) == password.charAt(j) && i != j) {
+//                    unique = false;
+//                    System.out.println("Nieunikalne");
+//                    break;
+//                }
+//            }
+//
+//            if (!unique) {
+//                break;
+//            }
+//        }
+//
+//        if (unique) {
+//            System.out.println("Unikalne");
+//        }
 
-        System.out.println("Podaj nowe hasło: ");
-        String password = scanner.nextLine();
+        int input = 5;
 
-        boolean unique = true;
-
-        for (int i = 0; i+1 < password.length(); i++) {
-
-            for (int j = i+1; j < password.length(); j++) {
-
-                if (password.charAt(i) == password.charAt(j) && i != j) {
-                    unique = false;
-                    System.out.println("Nieunikalne");
-                    break;
-                }
+        for (int i = 0; i < input; i++) {
+            for (int j = 0; j < input; j++) {
+                System.out.println(i + " * " + j + " = " + (i * j));
             }
-
-            if (!unique) {
-                break;
-            }
-        }
-
-        if (unique) {
-            System.out.println("Unikalne");
         }
     }
 }
