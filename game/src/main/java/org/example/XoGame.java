@@ -10,7 +10,7 @@ public class XoGame {
         char[][] board = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 
         for (int move = 0; move < 9; move++) {
-            coords input = getCoords(scanner);
+            Coords input = getCoords(scanner);
 
             if (!isValidMove(input.x(), input.y())) {
                 move--;
@@ -39,10 +39,10 @@ public class XoGame {
 
         for (int i = 0; i < board.length; i++) {
             win = possibleWins(win, board, i);
-            System.out.print(i + 1 + " ");
+            System.out.printf(i + 1 + " ");
 
             for (int j = 0; j < board.length; j++) {
-                System.out.print("| " + " " + board[i][j] + " ");
+                System.out.printf("|  " + board[i][j] + " ");
             }
 
             System.out.println("|");
@@ -58,15 +58,15 @@ public class XoGame {
         return win;
     }
 
-    private static coords getCoords(Scanner scanner) {
+    private static Coords getCoords(Scanner scanner) {
         System.out.print("Podaj współrzędna x(1-3): ");
         int x = scanner.nextInt() - 1;
         System.out.print("Podaj współrzędna y(1-3): ");
         int y = scanner.nextInt() - 1;
-        return new coords(x, y);
+        return new Coords(x, y);
     }
 
-    private record coords(int x, int y) {
+    private record Coords(int x, int y) {
     }
 
     private static boolean linesWin(char[][] board, int i, boolean win) {
@@ -110,7 +110,7 @@ public class XoGame {
 
     private static boolean playerWin(boolean win, char[][] board, int x, int y) {
         if (win) {
-            System.out.println("Gracz "  + board[x][y]  + " wygral");
+            System.out.printf("Gracz "  + board[x][y]  + " wygral");
             return true;
         }
         return false;
