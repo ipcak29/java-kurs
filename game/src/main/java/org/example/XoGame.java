@@ -39,10 +39,10 @@ public class XoGame {
 
         for (int i = 0; i < board.length; i++) {
             win = possibleWins(win, board, i);
-            System.out.printf(i + 1 + " ");
+            System.out.printf("%d ", i + 1 );
 
             for (int j = 0; j < board.length; j++) {
-                System.out.printf("|  " + board[i][j] + " ");
+                System.out.printf("|  %c", + board[i][j]);
             }
 
             System.out.println("|");
@@ -110,7 +110,7 @@ public class XoGame {
 
     private static boolean playerWin(boolean win, char[][] board, int x, int y) {
         if (win) {
-            System.out.printf("Gracz "  + board[x][y]  + " wygral");
+            System.out.printf("Gracz %c wygral%n", board[x][y]);
             return true;
         }
         return false;
