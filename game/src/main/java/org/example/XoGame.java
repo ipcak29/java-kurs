@@ -10,37 +10,41 @@ public class XoGame {
         char[][] board = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 
         for (int move = 0; move < 9; move++) {
-
             coords input = getCoords(scanner);
 
             if (!isValidMove(input.x(), input.y())) {
                 move--;
                 continue;
             }
+
             if (!busyPosition(board, input.x(), input.y())) {
                 move--;
                 continue;
             }
-            player = replacePlayer(input.y(), player, board[input.x()]);
 
-            upperBoard();
+            player = replacePlayer(input.y(), player, board[input.x()]);
 
             win = displayBoard(board, win);
 
-            if (playerWin(win, board, input.x(), input.y())) break;
+            if (playerWin(win, board, input.x(), input.y())) {
+                break;
+            }
         }
         noneWin(win);
     }
 
     private static boolean displayBoard(char[][] board, boolean win) {
+        System.out.println("     1    2    3 ");
+        System.out.println("  +----+----+----+");
+
         for (int i = 0; i < board.length; i++) {
             win = possibleWins(win, board, i);
-
             System.out.print(i + 1 + " ");
 
             for (int j = 0; j < board.length; j++) {
                 System.out.print("| " + " " + board[i][j] + " ");
             }
+
             System.out.println("|");
             System.out.println("  +----+----+----+");
         }
@@ -52,11 +56,6 @@ public class XoGame {
         win = columnsWin(board, i, win);
         win = isDiagonal(board, win);
         return win;
-    }
-
-    private static void upperBoard() {
-        System.out.println("     1    2    3 ");
-        System.out.println("  +----+----+----+");
     }
 
     private static coords getCoords(Scanner scanner) {
@@ -111,11 +110,7 @@ public class XoGame {
 
     private static boolean playerWin(boolean win, char[][] board, int x, int y) {
         if (win) {
-            System.out.println("Gracz"
-                    + " "
-                    + board[x][y]
-                    + " "
-                    + "wygral");
+            System.out.println("Gracz "  + board[x][y]  + " wygral");
             return true;
         }
         return false;
