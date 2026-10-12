@@ -1,15 +1,9 @@
 package org.example;
 
 public class Car extends Vehicle implements Driveable {
-    public static void main(String[] args) {
-        Car car1 = new Car("bmw", "e46", FuelType.DIESEL, 2001, 5, 1);
-        car1.drive();
-        car1.displayInfo();
-    }
+    private int doors;
 
-    int doors;
-
-    void displayInfo() {
+    protected void displayInfo() {
         super.displayInfo();
         System.out.println("  Ilosc drzwi: " + doors);
     }

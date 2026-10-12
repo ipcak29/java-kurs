@@ -1,16 +1,9 @@
 package org.example;
 
 public class Motorcycle extends Vehicle implements Driveable {
-    public static void main(String[] args) {
-        Motorcycle moto1 = new Motorcycle("Kawasaki", "Ninja", FuelType.PETROL, 2005, 2, 0);
-        moto1.displayInfo();
-        moto1.refuel(10);
-        moto1.drive();
-    }
+    private int seats;
 
-    int seats;
-
-    void displayInfo() {
+    protected void displayInfo() {
         super.displayInfo();
         System.out.println("  Ilość siedzeń: " + seats);
     }

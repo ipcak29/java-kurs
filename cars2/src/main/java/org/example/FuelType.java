@@ -11,7 +11,7 @@ public enum FuelType {
         this.price = price;
     }
 
-    double getPrice() {
-        return price;
+    public double refuelPrice(double liters) {
+        return liters * price;
     }
 }
