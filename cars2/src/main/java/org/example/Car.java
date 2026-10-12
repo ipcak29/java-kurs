@@ -25,7 +25,7 @@ public class Car extends Vehicle implements Driveable {
             System.out.println("Start jazdy");
             fuelLeft -= 2;
         } else {
-            System.out.println("Brak paliwa, zatankuj");
+            System.out.println("  Brak paliwa, zatankuj");
         }
     }
 }
