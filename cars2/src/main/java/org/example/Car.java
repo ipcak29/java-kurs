@@ -1,7 +1,7 @@
 package org.example;
 
 public class Car extends Vehicle implements Driveable {
-    private int doors;
+    private final int doors;
 
     protected void displayInfo() {
         super.displayInfo();
