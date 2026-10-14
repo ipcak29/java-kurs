@@ -1,7 +1,5 @@
 package org.example;
 
-import java.math.BigDecimal;
-
 abstract class Vehicle {
     protected String brand;
     protected String model;
@@ -31,7 +29,7 @@ abstract class Vehicle {
             fuelLeft += liters;
             System.out.println("Zalano: " + liters);
             System.out.printf("Paliwo kosztowało: %.2f %n   "
-                    , fuelType.refuelPrice(BigDecimal.valueOf(liters)));
+                    , fuelType.refuelPrice(liters));
         } else {
             System.out.println("Przekroczona pojemnosc zbiornika");
         }

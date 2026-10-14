@@ -13,8 +13,8 @@ public enum FuelType {
         this.price = new BigDecimal(price);
     }
 
-    public BigDecimal refuelPrice(BigDecimal liters){
-        return price.multiply(liters);
+    public BigDecimal refuelPrice(double liters){
+        return price.multiply(BigDecimal.valueOf(liters));
     }
     }
 
