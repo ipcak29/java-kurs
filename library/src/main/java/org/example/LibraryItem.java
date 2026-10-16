@@ -1,7 +1,7 @@
 package org.example;
 
 public abstract class LibraryItem {
-    private String title;
+    private final String title;
     private boolean borrowed;
 
     public LibraryItem(String title, boolean borrowed) {
@@ -9,7 +9,7 @@ public abstract class LibraryItem {
         this.borrowed = borrowed;
     }
 
-    public String displayInfo() {
+    public String getTitle() {
         return title;
     }
 
@@ -17,16 +17,29 @@ public abstract class LibraryItem {
         return borrowed;
     }
 
+    public String displayInfo() {
+        return title;
+    }
+
     public boolean isReturned() {
         return borrowed = false;
     }
 
     public void borrow() {
+        if (borrowed == true) {
+            System.out.println("Element jest wypozyczony");
+            return;
+        }
+        System.out.printf("Wypozyczono %s%n", title);
         borrowed = true;
-
     }
 
     public void returnItem() {
+        if(borrowed == false){
+            System.out.println("Zwrócony element");
+            return;
+        }
+        System.out.printf("Zwrócono %s%n", title);
         borrowed = false;
     }
 
@@ -34,3 +47,4 @@ public abstract class LibraryItem {
 
     }
 }
+
