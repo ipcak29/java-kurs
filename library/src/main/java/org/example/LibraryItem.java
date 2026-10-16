@@ -9,27 +9,28 @@ public abstract class LibraryItem {
         this.borrowed = borrowed;
     }
 
-    String displayInfo(){
+    public String displayInfo() {
         return title;
     }
 
-    boolean isBorrowed(){
-        return borrowed = true;
+    public boolean isBorrowed() {
+        return borrowed;
     }
 
-    boolean isReturned(){
+    public boolean isReturned() {
         return borrowed = false;
     }
 
-    void borrow(){
+    public void borrow() {
+        borrowed = true;
 
     }
 
-    void returnItem(){
-
+    public void returnItem() {
+        borrowed = false;
     }
 
-    void showInfo(){
+    public void showInfo() {
 
     }
 }

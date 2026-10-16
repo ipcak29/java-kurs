@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class LibraryService {
     private static final int MAX_ITEMS = 50;
-    private LibraryItem[] items = new LibraryItem[MAX_ITEMS];
+    private final LibraryItem[] items = new LibraryItem[MAX_ITEMS];
     private int count = 0;
 
     public void addItem(LibraryItem item){
@@ -15,14 +15,14 @@ public class LibraryService {
         System.out.println("Biblioteka zapelniona");
     }
     public LibraryItem[] listItems(boolean borrowed) {
-        boolean found = false;
         LibraryItem[] result = new LibraryItem[MAX_ITEMS];
-        int i = 0;
 
+        int i = 0;
         for (LibraryItem item : items) {
             if (item.isBorrowed() == borrowed) {
                 result[i] = item;
+                i++;
             }
         }
         return result;
-    }
+    }}
