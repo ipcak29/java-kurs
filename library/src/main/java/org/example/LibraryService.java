@@ -33,7 +33,7 @@ public class LibraryService {
     public void borrowItem(String title) {
         for (LibraryItem item : items) {
             if (item != null && item.getTitle().equals(title)) {
-                item.borrow();
+                item.borrow(title);
             }
         }
     }
@@ -41,11 +41,9 @@ public class LibraryService {
     public void returnItem(String title) {
         for (LibraryItem item : items) {
             if (item != null && item.getTitle().equals(title)) {
-                item.returnItem();
+                item.availableItem(title);
             }
         }
     }
-
-
 }
 

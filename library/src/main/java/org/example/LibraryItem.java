@@ -21,12 +21,8 @@ public abstract class LibraryItem {
         return title;
     }
 
-    public boolean isReturned() {
-        return borrowed = false;
-    }
-
-    public void borrow() {
-        if (borrowed == true) {
+    public void borrow(String title) {
+        if (borrowed) {
             System.out.println("Element jest wypozyczony");
             return;
         }
@@ -34,17 +30,13 @@ public abstract class LibraryItem {
         borrowed = true;
     }
 
-    public void returnItem() {
-        if(borrowed == false){
-            System.out.println("Zwrócony element");
+    public void availableItem(String title) {
+        if(!borrowed){
+            System.out.println("Tytul dostepny");
             return;
         }
         System.out.printf("Zwrócono %s%n", title);
         borrowed = false;
-    }
-
-    public void showInfo() {
-
     }
 }
 
