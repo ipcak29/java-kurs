@@ -10,14 +10,14 @@ public abstract class LibraryItem {
     }
 
     public String getTitle() {
-        return title;
+        return getClass().getName();
     }
 
     public boolean isBorrowed() {
         return borrowed;
     }
 
-    public String displayInfo() {
+    public String toString() {
         return title;
     }
 

@@ -13,7 +13,7 @@ public class Movie extends LibraryItem {
     }
 
     @Override
-    public String displayInfo() {
+    public String toString() {
         return String.format("Film: %s%n " +
                 "reżyser: %s%n " +
                 "długość filmu: %s%n" +

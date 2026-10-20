@@ -13,7 +13,7 @@ public class Book extends LibraryItem {
     }
 
     @Override
-    public String displayInfo() {
+    public String toString() {
         return String.format("Książka: %s%n " +
                 "autor: %s%n " +
                 "ilość stron: %s%n" +

@@ -14,7 +14,7 @@ public class TerminalInterface {
         LibraryItem[] result = libraryService.listItems(borrowed);
         for (LibraryItem item : result) {
             if (item != null) {
-                System.out.println(item.displayInfo());
+                System.out.println(item);
             }
         }
     }
