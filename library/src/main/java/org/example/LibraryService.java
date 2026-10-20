@@ -33,17 +33,21 @@ public class LibraryService {
     public void borrowItem(String title) {
         for (LibraryItem item : items) {
             if (item != null && item.getTitle().equals(title)) {
-                item.borrow(title);
+                item.borrow();
+                break;
             }
         }
+        System.out.println("Nie znaleziono");
     }
 
     public void returnItem(String title) {
         for (LibraryItem item : items) {
             if (item != null && item.getTitle().equals(title)) {
-                item.availableItem(title);
+                item.returnItem();
+                break;
             }
         }
+        System.out.println("Nie znaleziono");
     }
 }
 

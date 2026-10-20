@@ -14,12 +14,13 @@ public class Book extends LibraryItem {
 
     @Override
     public String displayInfo() {
-        return "Książka " + getTitle()
-                + "autor: " + author
-                + "strony: " + pages
-                + " status: " + (isBorrowed() ? "wypożyczona " : "dostępna");
+        return String.format("Książka: %s%n " +
+                "autor: %s%n " +
+                "ilość stron: %s%n" +
+                " status: %b%n", title, author, pages, (borrowed ? "wypożyczony" : "dostępny"));
     }
-    public static int getTotalBooks(){
+
+    public static int getTotalBooks() {
         return totalBooks;
     }
 }

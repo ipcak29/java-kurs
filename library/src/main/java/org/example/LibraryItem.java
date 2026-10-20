@@ -1,8 +1,8 @@
 package org.example;
 
 public abstract class LibraryItem {
-    private final String title;
-    private boolean borrowed;
+    protected final String title;
+    protected boolean borrowed;
 
     public LibraryItem(String title, boolean borrowed) {
         this.title = title;
@@ -21,7 +21,7 @@ public abstract class LibraryItem {
         return title;
     }
 
-    public void borrow(String title) {
+    public void borrow() {
         if (borrowed) {
             System.out.println("Element jest wypozyczony");
             return;
@@ -30,7 +30,7 @@ public abstract class LibraryItem {
         borrowed = true;
     }
 
-    public void availableItem(String title) {
+    public void returnItem() {
         if(!borrowed){
             System.out.println("Tytul dostepny");
             return;
