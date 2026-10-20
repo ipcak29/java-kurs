@@ -35,14 +35,9 @@ public class TerminalInterface {
 
     public void start() {
         int choice = 0;
-        System.out.println("Menu główne");
-        System.out.println("1.Wyswietl liste dostepnych: ");
-        System.out.println("2.Wyswietl liste wypożyczonych: ");
-        System.out.println("3.Wypozycz element po tytule ");
-        System.out.println("4.Zwróć element po tytule ");
-        System.out.println("5.Wyświetl liczbe książek w systemie: ");
-        System.out.println("6. Wyswietl liczbe filmów w systemie: ");
-        System.out.println("7. Wyjście z programu ");
+
+        showMenu();
+
         while (choice != 7) {
             System.out.println("Wpisz numer: ");
             choice = scanner.nextInt();
@@ -59,5 +54,18 @@ public class TerminalInterface {
             }
         }
     }
-}
 
+    private static void showMenu() {
+        String menu = """
+                Menu główne
+                1.Wyswietl liste dostepnych:
+                2.Wyswietl liste wypożyczonych:
+                3.Wypozycz element po tytule
+                4.Zwróć element po tytule
+                5.Wyświetl liczbe książek w systemie:
+                6.Wyswietl liczbe filmów w systemie:
+                7.Wyjście z programu
+                """;
+        System.out.println(menu);
+    }
+}

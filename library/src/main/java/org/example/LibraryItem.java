@@ -21,7 +21,7 @@ public abstract class LibraryItem {
         return title;
     }
 
-    public void borrow() {
+    public void findByTitle() {
         if (borrowed) {
             System.out.println("Element jest wypozyczony");
             return;
@@ -31,7 +31,7 @@ public abstract class LibraryItem {
     }
 
     public void returnItem() {
-        if(!borrowed){
+        if (!borrowed) {
             System.out.println("Tytul dostepny");
             return;
         }
@@ -39,4 +39,3 @@ public abstract class LibraryItem {
         borrowed = false;
     }
 }
-

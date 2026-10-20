@@ -33,7 +33,7 @@ public class LibraryService {
     public void borrowItem(String title) {
         for (LibraryItem item : items) {
             if (item != null && item.getTitle().equals(title)) {
-                item.borrow();
+                item.findByTitle();
                 break;
             }
         }
@@ -50,4 +50,3 @@ public class LibraryService {
         System.out.println("Nie znaleziono");
     }
 }
-
