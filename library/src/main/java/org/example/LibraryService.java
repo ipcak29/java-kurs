@@ -31,22 +31,29 @@ public class LibraryService {
     }
 
     public void borrowItem(String title) {
-        for (LibraryItem item : items) {
-            if (item != null && item.getTitle().equals(title)) {
-                item.findByTitle();
-                break;
-            }
+        LibraryItem item = findByTitle(title);
+        if (item == null) {
+            System.out.println("Nie znaleziono tytułu");
+            return;
         }
-        System.out.println("Nie znaleziono");
+        item.borrow();
     }
 
     public void returnItem(String title) {
+        LibraryItem item = findByTitle(title);
+        if (item == null) {
+            System.out.println("Nie znaleziono tytułu");
+            return;
+        }
+        item.returnItem();
+    }
+
+    private LibraryItem findByTitle(String title) {
         for (LibraryItem item : items) {
             if (item != null && item.getTitle().equals(title)) {
-                item.returnItem();
-                break;
+                return item;
             }
         }
-        System.out.println("Nie znaleziono");
+        return null;
     }
 }

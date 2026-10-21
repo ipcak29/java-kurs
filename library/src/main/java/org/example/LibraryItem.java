@@ -10,7 +10,7 @@ public abstract class LibraryItem {
     }
 
     public String getTitle() {
-        return getClass().getName();
+        return title;
     }
 
     public boolean isBorrowed() {
@@ -21,7 +21,7 @@ public abstract class LibraryItem {
         return title;
     }
 
-    public void findByTitle() {
+    public void borrow() {
         if (borrowed) {
             System.out.println("Element jest wypozyczony");
             return;
