@@ -1,6 +1,8 @@
 package org.example;
 
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,6 +13,7 @@ public class Main {
         int[] result = getUsers(users, scanner);
 
         getScore(result, scanner);
+        Set<Integer> unique = uniqueValues(result);
         int sum = sum(result);
         double average = average(result);
         int min = min(result);
@@ -29,7 +32,9 @@ public class Main {
                 Podana maksymalna wartość: %s
                 Ilość użytkowników, którzy przeszli dalej: %s
                 Ilość użytkowników, którzy nie przeszli dalej: %s
-                """.formatted(sum, average, min, max, passed, notPassed);
+                Unikalność: %s
+                Ilość unikalności: %s
+                """.formatted(sum, average, min, max, passed, notPassed, unique, unique.size());
         System.out.print(texts);
     }
 
@@ -129,5 +134,13 @@ public class Main {
             scanner.next();
         }
         return scanner.nextInt();
+    }
+
+    static Set<Integer> uniqueValues(int[] results) {
+        Set<Integer> unique = new HashSet<>();
+        for (int result : results) {
+            unique.add(result);
+        }
+        return unique;
     }
 }
