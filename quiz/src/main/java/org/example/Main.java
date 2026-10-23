@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +12,8 @@ public class Main {
 
         getScore(result, scanner);
         Set<Integer> unique = uniqueValues(result);
+        Map<Integer, Integer> frequent = frequencies(result);
+
         int sum = sum(result);
         double average = average(result);
         int min = min(result);
@@ -34,8 +34,24 @@ public class Main {
                 Ilość użytkowników, którzy nie przeszli dalej: %s
                 Unikalność: %s
                 Ilość unikalności: %s
-                """.formatted(sum, average, min, max, passed, notPassed, unique, unique.size());
+                Częstotliwość: %s
+                """.formatted(sum, average, min, max, passed, notPassed, unique, unique.size(), frequent);
         System.out.print(texts);
+        mostFrequent(frequent);
+    }
+
+    private static void mostFrequent(Map<Integer, Integer> frequent) {
+        int maxFreq = 0;
+        for (int count : frequent.values()) {
+            if (count > maxFreq) {
+                maxFreq = count;
+            }
+        }
+        for (Integer score : frequent.keySet()) {
+            if (frequent.get(score) == maxFreq) {
+                System.out.printf("Najczęstszy wynik: %s , ile razy wystąpiło: %s", score, maxFreq);
+            }
+        }
     }
 
     private static int[] getUsers(int users, Scanner scanner) {
@@ -49,7 +65,7 @@ public class Main {
 
     private static void getScore(int[] result, Scanner scanner) {
         for (int i = 0; i < result.length; i++) {
-            System.out.println("Uczestniku nr: " + (i + 1) + "  podaj wynik(0-100)");
+            System.out.printf("Uczestniku nr: %s,  podaj wynik(0-100)", (i + 1));
             result[i] = onlyInt(scanner);
 
             while (result[i] < 0 || result[i] > 100) {
@@ -119,28 +135,38 @@ public class Main {
 
     static void showResults(int[] results) {
         for (int i = 0; i < results.length; i++) {
-            System.out.println("Użytkownik nr: " + (i + 1) + " wynik: " + results[i]);
+            System.out.printf("Użytkownik nr: %s  wynik: %s ", (i + 1), results[i]);
             if (results[i] >= 50) {
-                System.out.println("Przeszedł dalej nr: " + (i + 1) + ", z wynikiem: " + results[i]);
+                System.out.printf("Przeszedł dalej nr: %s, z wynikiem: %s%n", (i + 1), results[i]);
             } else {
-                System.out.println("Nie zaliczył użytkownik nr: " + (i + 1) + ", z wynikiem: " + results[i]);
+                System.out.printf("Nie zaliczył użytkownik nr: %s , z wynikiem: %s%n", (i + 1), results[i]);
             }
         }
     }
 
     static int onlyInt(Scanner scanner) {
         while (!scanner.hasNextInt()) {
-            System.out.println("Wymagana liczba, podałes litere!");
+            System.out.println("Wymagana liczba, błędny typ!");
             scanner.next();
         }
         return scanner.nextInt();
     }
 
-    static Set<Integer> uniqueValues(int[] results) {
+    static Set<Integer> uniqueValues(int[] results) {////tu sie zatrzymalem, czasu braklo
         Set<Integer> unique = new HashSet<>();
         for (int result : results) {
             unique.add(result);
         }
         return unique;
     }
+
+    static Map<Integer, Integer> frequencies(int[] results) {
+        Map<Integer, Integer> frequent = new HashMap<>();
+        for (int result : results) {
+            int count = frequent.getOrDefault(result, 0);
+            frequent.put(result, count + 1);
+        }
+        return frequent;
+    }
+
 }
