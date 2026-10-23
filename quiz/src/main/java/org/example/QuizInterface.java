@@ -98,6 +98,20 @@ public class QuizInterface {
         }
     }
 
+    static void showStatistics(int[] results) {
+        int sum = sum(results);
+        double average = average(results);
+        int min = min(results);
+        int max = max(results);
+        int passed = countPassed(results);
+        int notPassed = results.length - passed;
+
+        System.out.printf("Suma wyników: %s%n Średnia wyników: %s%n" +
+                " Wynik minimalny: %s%n Wynik maksymalny: %s%n Przeszli dalej: %s%n" +
+                "Nie przeszli dalej: %s%n", sum, average, min, max, passed, notPassed);
+        rateAverage(average);
+    }
+
     static int onlyInt(Scanner scanner) {
         while (!scanner.hasNextInt()) {
             System.out.println("Wymagana liczba, błędny typ!");
@@ -132,7 +146,7 @@ public class QuizInterface {
         }
         for (Integer score : frequent.keySet()) {
             if (frequent.get(score) == maxFreq) {
-                System.out.printf("Najczęstszy wynik: %s , ile razy wystąpiło: %s", score, maxFreq);
+                System.out.printf("Najczęstszy wynik: %s , ile razy wystąpiło: %s%n", score, maxFreq);
             }
         }
     }
