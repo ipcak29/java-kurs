@@ -26,39 +26,12 @@ public class Main {
             switch (choice) {
                 case 1 -> showResults(result);
                 case 2 -> showStatistics(result);
-                case 3 -> showStatistics(result);
-
-
+                case 3 -> showUnique(result);
+                case 4 -> showFrequencies(result);
+                case 5 -> changeScore(result, scanner);
                 case 0 -> running = false;
                 default -> System.out.println("Błędna opcja");
             }
         }
-        Set<Integer> unique = uniqueValues(result);
-        Map<Integer, Integer> frequent = frequencies(result);
-
-        int sum = sum(result);
-        double average = average(result);w
-        int min = min(result);
-        int max = max(result);
-        int passed = countPassed(result);
-        int notPassed = getNotPassed(result, passed);
-
-        showResults(result);
-
-        rateAverage(average);
-
-        String texts = """
-                Suma wyników wynosi: %s
-                Średnia wyników wynosi: %s
-                Podana minimalna wartość: %s
-                Podana maksymalna wartość: %s
-                Ilość użytkowników, którzy przeszli dalej: %s
-                Ilość użytkowników, którzy nie przeszli dalej: %s
-                Unikalność: %s
-                Ilość unikalności: %s
-                Częstotliwość: %s
-                """.formatted(sum, average, min, max, passed, notPassed, unique, unique.size(), frequent);
-        System.out.print(texts);
-        mostFrequent(frequent);
     }
 }

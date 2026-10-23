@@ -63,10 +63,6 @@ public class QuizInterface {
         return passed;
     }
 
-    static int getNotPassed(int[] result, int passed) {
-        return result.length - passed;
-    }
-
     static int min(int[] results) {
         int min = results[0];
         for (int result : results) {
@@ -110,6 +106,17 @@ public class QuizInterface {
                 " Wynik minimalny: %s%n Wynik maksymalny: %s%n Przeszli dalej: %s%n" +
                 "Nie przeszli dalej: %s%n", sum, average, min, max, passed, notPassed);
         rateAverage(average);
+    }
+
+    static void showUnique(int[] results){
+        Set<Integer> unique = uniqueValues(results);
+        System.out.printf("Unikalne wyniki: %s%n Ilość unikalnych wyników: %s%n",unique, unique.size());
+    }
+
+    static void showFrequencies(int[] results){
+        Map<Integer, Integer>  frequencies = frequencies(results);
+        System.out.printf("Częstotliwości: %s%n", frequencies);
+        mostFrequent(frequencies);
     }
 
     static int onlyInt(Scanner scanner) {
