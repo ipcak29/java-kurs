@@ -108,13 +108,13 @@ public class QuizInterface {
         rateAverage(average);
     }
 
-    static void showUnique(int[] results){
+    static void showUnique(int[] results) {
         Set<Integer> unique = uniqueValues(results);
-        System.out.printf("Unikalne wyniki: %s%n Ilość unikalnych wyników: %s%n",unique, unique.size());
+        System.out.printf("Unikalne wyniki: %s%n Ilość unikalnych wyników: %s%n", unique, unique.size());
     }
 
-    static void showFrequencies(int[] results){
-        Map<Integer, Integer>  frequencies = frequencies(results);
+    static void showFrequencies(int[] results) {
+        Map<Integer, Integer> frequencies = frequencies(results);
         System.out.printf("Częstotliwości: %s%n", frequencies);
         mostFrequent(frequencies);
     }
@@ -168,5 +168,18 @@ public class QuizInterface {
                 result[i] = onlyInt(scanner);
             }
         }
+    }
+
+    static void menuOptions() {
+        String textMenu = """
+                Menu
+                1.Pokaż wyniki
+                2.Pokaż podstawowe statystyki
+                3.Pokaż unikalne wyniki
+                4.Pokaż częstotliwość i najczęstsze wyniki
+                5.Popraw wynik uczestnika
+                0.Zakończ
+                """;
+        System.out.print(textMenu);
     }
 }

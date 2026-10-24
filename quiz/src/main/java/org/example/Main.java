@@ -13,15 +13,10 @@ public class Main {
         int[] result = getUsers(users, scanner);
 
         getScore(result, scanner);
+
         boolean running = true;
         while (running) {
-            System.out.println("Menu");
-            System.out.println("1.Pokaż wyniki");
-            System.out.println("2.Pokaż podstawowe statystyki");
-            System.out.println("3.Pokaż unikalne wyniki");
-            System.out.println("4.Pokaż częstotliwość i najczęstsze wyniki");
-            System.out.println("5.Popraw wynik uczestnika");
-            System.out.println("0.Zakończ");
+            menuOptions();
             int choice = onlyInt(scanner);
             switch (choice) {
                 case 1 -> showResults(result);
