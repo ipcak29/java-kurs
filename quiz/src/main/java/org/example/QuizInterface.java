@@ -178,8 +178,32 @@ public class QuizInterface {
                 3.Pokaż unikalne wyniki
                 4.Pokaż częstotliwość i najczęstsze wyniki
                 5.Popraw wynik uczestnika
+                6.Raport przedziałów i % zaliczeń
                 0.Zakończ
                 """;
         System.out.print(textMenu);
+    }
+
+    static void showRanges(int[] results) {
+        int lowRange = 0;
+        int midRange = 0;
+        int highRange = 0;
+
+        for (int result : results) {
+            if (result < 50) {
+                lowRange++;
+            } else if (result < 80) {
+                midRange++;
+            } else {
+                highRange++;
+            }
+        }
+        System.out.printf("""
+                0-49, liczba osób: %d
+                50-79, liczba osób: %d
+                80-100, liczba osób: %d""", lowRange, midRange, highRange);
+
+        double usersPass = countPassed(results) * 100.0 / results.length;
+        System.out.printf("%nProcent zaliczeń: %.1f%%%n", usersPass);
     }
 }

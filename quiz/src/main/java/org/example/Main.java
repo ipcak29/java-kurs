@@ -24,6 +24,7 @@ public class Main {
                 case 3 -> showUnique(result);
                 case 4 -> showFrequencies(result);
                 case 5 -> changeScore(result, scanner);
+                case 6 -> showRanges(result);
                 case 0 -> running = false;
                 default -> System.out.println("Błędna opcja");
             }
