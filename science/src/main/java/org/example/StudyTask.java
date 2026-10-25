@@ -40,7 +40,9 @@ public class StudyTask {
             return;
         }
         String normalTag = tag.trim().toLowerCase();
-        tags.add(normalTag);
+        if(!tags.add(normalTag)){
+            System.out.println("Taki tag juz istnieje");
+        }
     }
 
     public void removeTag(String tag) {

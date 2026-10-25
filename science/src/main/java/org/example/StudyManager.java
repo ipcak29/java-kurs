@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class StudyManager {
     List<StudyTask> tasks = new ArrayList<>();
@@ -118,7 +116,7 @@ public class StudyManager {
     void removeTagFromEx(int id, String tag) {
         for (StudyTask task : tasks) {
             if (task.getId() == id) {
-                if (!task.getTags().contains(tag.trim().toLowerCase())){
+                if (!task.getTags().contains(tag.trim().toLowerCase())) {
                     System.out.println("Podany tag nie istnieje");
                     return;
                 }
@@ -129,7 +127,7 @@ public class StudyManager {
         System.out.println("Podano nieistniejące id");
     }
 
-    void handleAddTag(Scanner scanner){
+    void handleAddTag(Scanner scanner) {
         scanner.nextLine();
         System.out.println("Podaj id: ");
         int id = onlyInt(scanner);
@@ -139,7 +137,8 @@ public class StudyManager {
         String tag = scanner.nextLine();
         addTagToEx(id, tag);
     }
-    void handleRemoveTag(Scanner scanner){
+
+    void handleRemoveTag(Scanner scanner) {
         scanner.nextLine();
         System.out.println("Podaj id: ");
         int id = onlyInt(scanner);
@@ -148,5 +147,47 @@ public class StudyManager {
         System.out.println("Podaj tag: ");
         String tag = scanner.nextLine();
         removeTagFromEx(id, tag);
+    }
+
+    void findByTag(String tag) {
+        if (tag.trim().isEmpty()){
+            System.out.println("Tag nie może być pusty");
+            return;
+        }
+        String normalTag = tag.trim().toLowerCase();
+        for (StudyTask task : tasks) {
+            if (task.getTags().contains(normalTag)) {
+                System.out.println(task.getId() + " " + task.getTitle());
+            }
+        }
+    }
+
+    void handleFindByTag(Scanner scanner) {
+        scanner.nextLine();
+        System.out.println("Podaj tag: ");
+        String tag = scanner.nextLine();
+        findByTag(tag);
+    }
+
+    static void showMenu() {
+        System.out.println("""
+                1.Dodaj zadanie
+                2. Pokaż zadania i wybierz filtr
+                3. Oznacz jako ukończone
+                4. Usuń zadanie
+                5. Dodaj tag
+                6. Usuń tag
+                7. Znajdź po tagu
+                8. Pokaż wszystkie użyte tagi
+                0. Wyjście
+                """);
+    }
+
+    void showUsedTags() {
+        HashSet<String> usedTags = new HashSet<>();
+        for (StudyTask task : tasks) {
+            usedTags.addAll(task.getTags());
+        }
+        System.out.println(usedTags);
     }
 }
