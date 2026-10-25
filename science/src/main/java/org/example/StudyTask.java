@@ -35,10 +35,20 @@ public class StudyTask {
     }
 
     public void addTag(String tag) {
-
+        if (tag.trim().isEmpty()) {
+            System.out.println("Nie dozwolony");
+            return;
+        }
+        String normalTag = tag.trim().toLowerCase();
+        tags.add(normalTag);
     }
 
-    public void removeTag() {
-
+    public void removeTag(String tag) {
+        if (tag.trim().isEmpty()) {
+            System.out.println("Nie dozwolony");
+            return;
+        }
+        String normalTag = tag.trim().toLowerCase();
+        tags.remove(normalTag);
     }
 }
