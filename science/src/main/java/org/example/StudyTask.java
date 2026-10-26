@@ -1,4 +1,5 @@
 package org.example;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,7 +41,7 @@ public class StudyTask {
             return;
         }
         String normalTag = tag.trim().toLowerCase();
-        if(!tags.add(normalTag)){
+        if (!tags.add(normalTag)) {
             System.out.println("Taki tag juz istnieje");
         }
     }

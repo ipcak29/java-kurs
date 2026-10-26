@@ -150,7 +150,7 @@ public class StudyManager {
     }
 
     void findByTag(String tag) {
-        if (tag.trim().isEmpty()){
+        if (tag.trim().isEmpty()) {
             System.out.println("Tag nie może być pusty");
             return;
         }
@@ -192,14 +192,33 @@ public class StudyManager {
         System.out.println(usedTags);
     }
 
-    void showTagCounts(){
+    void showTagCounts() {
         Map<String, Integer> countTags = new HashMap<>();
-        for (StudyTask task : tasks){
-            for (String tag : task.getTags()){
+        for (StudyTask task : tasks) {
+            for (String tag : task.getTags()) {
                 int count = countTags.getOrDefault(tag, 0);
                 countTags.put(tag, count + 1);
             }
         }
         System.out.println(countTags);
+    }
+
+     static void startMenu(int choice, Scanner scanner, StudyManager studyManager) {
+        while (choice != 0) {
+            showMenu();
+            choice = StudyManager.onlyInt(scanner);
+            switch (choice) {
+                case 1 -> studyManager.handleAddExercise(scanner);
+                case 2 -> studyManager.showFilteredEx(scanner);
+                case 3 -> studyManager.markAsCompleted(scanner);
+                case 4 -> studyManager.handleDeleteExercise(scanner);
+                case 5 -> studyManager.handleAddTag(scanner);
+                case 6 -> studyManager.handleRemoveTag(scanner);
+                case 7 -> studyManager.handleFindByTag(scanner);
+                case 8 -> studyManager.showUsedTags();
+                case 9 -> studyManager.showTagCounts();
+                default -> System.out.println("Błędna opcja, spróbuj ponownie");
+            }
+        }
     }
 }
