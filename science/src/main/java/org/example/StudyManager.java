@@ -179,6 +179,7 @@ public class StudyManager {
                 6. Usuń tag
                 7. Znajdź po tagu
                 8. Pokaż wszystkie użyte tagi
+                9. Pokaż ilość użytych tagów
                 0. Wyjście
                 """);
     }
@@ -189,5 +190,16 @@ public class StudyManager {
             usedTags.addAll(task.getTags());
         }
         System.out.println(usedTags);
+    }
+
+    void showTagCounts(){
+        Map<String, Integer> countTags = new HashMap<>();
+        for (StudyTask task : tasks){
+            for (String tag : task.getTags()){
+                int count = countTags.getOrDefault(tag, 0);
+                countTags.put(tag, count + 1);
+            }
+        }
+        System.out.println(countTags);
     }
 }
