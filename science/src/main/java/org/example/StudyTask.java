@@ -54,4 +54,12 @@ public class StudyTask {
         String normalTag = tag.trim().toLowerCase();
         tags.remove(normalTag);
     }
+
+   @Override
+    public String toString(){
+        return String.format(
+          "Numer zadania:%d%n Nazwa zadania:%s%n Status zadania:%s%n Tagi:%s%n",
+          id, title, completed, tags
+        );
+   }
 }
