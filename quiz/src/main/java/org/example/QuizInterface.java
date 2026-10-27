@@ -4,7 +4,7 @@ import java.util.*;
 
 public class QuizInterface {
 
-    static int[] getUsers(int users, Scanner scanner) {
+    public int[] getUsers(int users, Scanner scanner) {
         while (users < 1 || users > 20) {
             System.out.println("Błędna ilość uczestników");
             users = onlyInt(scanner);
@@ -13,37 +13,25 @@ public class QuizInterface {
         return new int[users];
     }
 
-    static int sum(int[] results) {
-        int sum = 0;
-        for (int result : results) {
-            sum += result;
-        }
-        return sum;
-    }
-
-    static double average(int[] results) {
-        double average;
-        average = (double) sum(results) / results.length;
-        return average;
-    }
-
-    static void changeScore(int[] result, Scanner scanner) {
+    private void changeScore(Quiz quiz, Scanner scanner) {
         System.out.println("Dla jakiego uczestnika zmienić wynik?");
         int participantNumber = onlyInt(scanner);
-        while (participantNumber < 1 || participantNumber > result.length) {
+
+        while (participantNumber < 1 || participantNumber > quiz.getParticipantCount()) {
             System.out.println("Błędny numer");
             participantNumber = onlyInt(scanner);
         }
         System.out.println("Podaj nowy wynik: ");
         int newScore = onlyInt(scanner);
+
         while (newScore < 0 || newScore > 100) {
             System.out.println("Błędny wynik");
             newScore = onlyInt(scanner);
         }
-        result[participantNumber - 1] = newScore;
+        quiz.changeScore(participantNumber, newScore);
     }
 
-    static void rateAverage(double average) {
+    public void rateAverage(double average) {
         if (average < 50) {
             System.out.println("Do powtórki");
         } else if (average < 80) {
@@ -53,54 +41,26 @@ public class QuizInterface {
         }
     }
 
-    static int countPassed(int[] results) {
-        int passed = 0;
-        for (int result : results) {
-            if (result >= 50) {
-                passed++;
-            }
-        }
-        return passed;
-    }
+    public void showResults(Quiz quiz) {
+        for (int i = 0; i < quiz.getParticipantCount(); i++) {
+            int score = quiz.getScore(i + 1);
 
-    static int min(int[] results) {
-        int min = results[0];
-        for (int result : results) {
-            if (result < min) {
-                min = result;
-            }
-        }
-        return min;
-    }
-
-    static int max(int[] results) {
-        int max = results[0];
-        for (int result : results) {
-            if (result > max) {
-                max = result;
-            }
-        }
-        return max;
-    }
-
-    static void showResults(int[] results) {
-        for (int i = 0; i < results.length; i++) {
-            System.out.printf("Użytkownik nr: %s  wynik: %s ", (i + 1), results[i]);
-            if (results[i] >= 50) {
-                System.out.printf("Przeszedł dalej nr: %s, z wynikiem: %s%n", (i + 1), results[i]);
+            System.out.printf("Użytkownik nr: %s  wynik: %s ", i + 1, score);
+            if (score >= 50) {
+                System.out.printf("Przeszedł dalej nr: %s, z wynikiem: %s%n", i + 1, score);
             } else {
-                System.out.printf("Nie zaliczył użytkownik nr: %s , z wynikiem: %s%n", (i + 1), results[i]);
+                System.out.printf("Nie zaliczył użytkownik nr: %s , z wynikiem: %s%n", i + 1, score);
             }
         }
     }
 
-    static void showStatistics(int[] results) {
-        int sum = sum(results);
-        double average = average(results);
-        int min = min(results);
-        int max = max(results);
-        int passed = countPassed(results);
-        int notPassed = results.length - passed;
+    public void showStatistics(Quiz quiz) {
+        int sum = quiz.sum();
+        double average = quiz.average();
+        int min = quiz.min();
+        int max = quiz.max();
+        int passed = quiz.countPassed();
+        int notPassed = quiz.getParticipantCount() - passed;
 
         System.out.printf("Suma wyników: %s%n Średnia wyników: %s%n" +
                 " Wynik minimalny: %s%n Wynik maksymalny: %s%n Przeszli dalej: %s%n" +
@@ -108,18 +68,18 @@ public class QuizInterface {
         rateAverage(average);
     }
 
-    static void showUnique(int[] results) {
-        Set<Integer> unique = uniqueValues(results);
+    public void showUnique(Quiz quiz) {
+        Set<Integer> unique = quiz.uniqueValues();
         System.out.printf("Unikalne wyniki: %s%n Ilość unikalnych wyników: %s%n", unique, unique.size());
     }
 
-    static void showFrequencies(int[] results) {
-        Map<Integer, Integer> frequencies = frequencies(results);
+    public void showFrequencies(Quiz quiz) {
+        Map<Integer, Integer> frequencies = quiz.frequencies();
         System.out.printf("Częstotliwości: %s%n", frequencies);
         mostFrequent(frequencies);
     }
 
-    static int onlyInt(Scanner scanner) {
+    public int onlyInt(Scanner scanner) {
         while (!scanner.hasNextInt()) {
             System.out.println("Wymagana liczba, błędny typ!");
             scanner.next();
@@ -127,24 +87,7 @@ public class QuizInterface {
         return scanner.nextInt();
     }
 
-    static Set<Integer> uniqueValues(int[] results) {
-        Set<Integer> unique = new HashSet<>();
-        for (int result : results) {
-            unique.add(result);
-        }
-        return unique;
-    }
-
-    static Map<Integer, Integer> frequencies(int[] results) {
-        Map<Integer, Integer> frequent = new HashMap<>();
-        for (int result : results) {
-            int count = frequent.getOrDefault(result, 0);
-            frequent.put(result, count + 1);
-        }
-        return frequent;
-    }
-
-    static void mostFrequent(Map<Integer, Integer> frequent) {
+    public void mostFrequent(Map<Integer, Integer> frequent) {
         int maxFreq = 0;
         for (int count : frequent.values()) {
             if (count > maxFreq) {
@@ -158,7 +101,7 @@ public class QuizInterface {
         }
     }
 
-    static void getScore(int[] result, Scanner scanner) {
+    public void getScore(int[] result, Scanner scanner) {
         for (int i = 0; i < result.length; i++) {
             System.out.printf("Uczestniku nr: %s,  podaj wynik(0-100)", (i + 1));
             result[i] = onlyInt(scanner);
@@ -170,7 +113,7 @@ public class QuizInterface {
         }
     }
 
-    static void menuOptions() {
+    public void menuOptions() {
         String textMenu = """
                 Menu
                 1.Pokaż wyniki
@@ -184,26 +127,43 @@ public class QuizInterface {
         System.out.print(textMenu);
     }
 
-    static void showRanges(int[] results) {
-        int lowRange = 0;
-        int midRange = 0;
-        int highRange = 0;
-
-        for (int result : results) {
-            if (result < 50) {
-                lowRange++;
-            } else if (result < 80) {
-                midRange++;
-            } else {
-                highRange++;
-            }
-        }
+    public void showRanges(Quiz quiz) {
+        int lowRange = quiz.countInRange(0, 49);
+        int midRange = quiz.countInRange(50, 79);
+        int highRange = quiz.countInRange(80, 100);
         System.out.printf("""
                 0-49, liczba osób: %d
                 50-79, liczba osób: %d
                 80-100, liczba osób: %d""", lowRange, midRange, highRange);
 
-        double usersPass = countPassed(results) * 100.0 / results.length;
+        double usersPass = quiz.countPassed() * 100.0 / quiz.getParticipantCount();
         System.out.printf("%nProcent zaliczeń: %.1f%%%n", usersPass);
+    }
+
+    public void start(Scanner scanner) {
+        boolean running = true;
+
+        System.out.println("Podaj liczbe użytkowników ");
+        int users = onlyInt(scanner);
+
+        int[] result = getUsers(users, scanner);
+        getScore(result, scanner);
+        Quiz quiz = new Quiz(result);
+
+        while (running) {
+            menuOptions();
+            int choice = onlyInt(scanner);
+
+            switch (choice) {
+                case 1 -> showResults(quiz);
+                case 2 -> showStatistics(quiz);
+                case 3 -> showUnique(quiz);
+                case 4 -> showFrequencies(quiz);
+                case 5 -> changeScore(quiz, scanner);
+                case 6 -> showRanges(quiz);
+                case 0 -> running = false;
+                default -> System.out.println("Błędna opcja");
+            }
+        }
     }
 }
