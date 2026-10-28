@@ -6,7 +6,7 @@ public abstract class Shipment {
     private boolean sent = false;
 
     public Shipment(String id, String recipient) {
-        this.id = id;
+        this.id = id.trim().toUpperCase();
         this.recipient = recipient;
     }
 
