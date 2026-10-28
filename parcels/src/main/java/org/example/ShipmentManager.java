@@ -35,4 +35,20 @@ public class ShipmentManager {
   public List<Shipment> getAllShipments(){
     return new ArrayList<>(shipments.values());
     }
+
+    private final List<String>sentHistory = new ArrayList<>();
+
+    public boolean sendShipment(String id){
+      Shipment shipment = findById(id);
+      if (shipment == null || shipment.isSent() ){
+        return false;
+      }
+      shipment.markSent();
+      sentHistory.add("Nadano " + shipment.getId() + " do " + shipment.getRecipient());
+      return true;
+    }
+
+    public List<String>getSentHistory(){
+      return new ArrayList<>(sentHistory);
+  }
   }

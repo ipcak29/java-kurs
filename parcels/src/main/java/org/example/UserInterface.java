@@ -18,4 +18,11 @@ public class UserInterface {
         int total = shipmentManager.calculateUnsentCost();
         System.out.printf("Koszt nienadanych przesyłek: %d gr%n", total);
     }
+
+    public void showHistory(){
+        List<String> history = shipmentManager.getSentHistory();
+        for (String entry : history){
+            System.out.println(entry);
+        }
+    }
 }
