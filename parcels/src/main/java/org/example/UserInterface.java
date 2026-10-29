@@ -112,14 +112,14 @@ public class UserInterface {
         String id = scanner.nextLine();
         boolean sent = shipmentManager.sendShipment(id);
 
-        if(sent){
+        if (sent) {
             System.out.println("Pomyślnie nadano");
-        }else{
+        } else {
             System.out.println("ID nie istnieje lub przesyłka była nadana");
         }
     }
 
-    public void showMenu(){
+    public void showMenu() {
         String textMenu = """
                 1.Dodaj list
                 2.Dodaj paczkę
@@ -135,14 +135,14 @@ public class UserInterface {
         System.out.println(textMenu);
     }
 
-    public void startMenu(Scanner scanner){
+    public void startMenu(Scanner scanner) {
         int choice = -1;
-        while(choice != 0){
+        while (choice != 0) {
             showMenu();
             choice = scanner.nextInt();
-            switch (choice){
-                case 1-> handleAddLetter(scanner);
-                case 2-> handleAddParcel(scanner);
+            switch (choice) {
+                case 1 -> handleAddLetter(scanner);
+                case 2 -> handleAddParcel(scanner);
                 case 3 -> showParcels();
                 case 4 -> findShipmentById(scanner);
                 case 5 -> showUnsentCost();
@@ -155,5 +155,4 @@ public class UserInterface {
             }
         }
     }
-
 }
