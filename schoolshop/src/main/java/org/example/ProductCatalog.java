@@ -19,5 +19,4 @@ public class ProductCatalog {
     public List<Product> getAllProducts() {
         return new ArrayList<>(catalog.values());
     }
-
 }
