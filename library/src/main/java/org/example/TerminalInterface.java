@@ -23,14 +23,22 @@ public class TerminalInterface {
         showItems(true);
         System.out.println("Podaj tytuł do zwrotu: ");
         String title = scanner.nextLine();
-        libraryService.returnItem(title);
+        try {
+            libraryService.returnItem(title);
+        } catch (TitleNotFoundException | BookAlreadyReturnedException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void processBorrowItem() {
         showItems(false);
         System.out.println("Podaj tytuł do wypożyczenia: ");
         String title = scanner.nextLine();
-        libraryService.borrowItem(title);
+        try {
+            libraryService.borrowItem(title);
+        } catch (TitleNotFoundException | BookAlreadyBorrowedException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void start() {

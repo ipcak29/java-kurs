@@ -30,30 +30,28 @@ public class LibraryService {
         return result;
     }
 
-    public void borrowItem(String title) {
+    public void borrowItem(String title) throws TitleNotFoundException {
         LibraryItem item = findByTitle(title);
-        if (item == null) {
-            System.out.println("Nie znaleziono tytułu");
-            return;
+        if (item.isBorrowed()) {
+            throw new BookAlreadyBorrowedException("Tytul juz jest wypożyczony ");
         }
         item.borrow();
     }
 
-    public void returnItem(String title) {
+    public void returnItem(String title) throws TitleNotFoundException, BookAlreadyReturnedException {
         LibraryItem item = findByTitle(title);
-        if (item == null) {
-            System.out.println("Nie znaleziono tytułu");
-            return;
+        if (!item.isBorrowed()) {
+            throw new BookAlreadyReturnedException("Tytul juz jest zwrocony ");
         }
         item.returnItem();
     }
 
-    private LibraryItem findByTitle(String title) {
+    private LibraryItem findByTitle(String title) throws TitleNotFoundException {
         for (LibraryItem item : items) {
             if (item != null && item.getTitle().equals(title)) {
                 return item;
             }
         }
-        return null;
+        throw new TitleNotFoundException("Nie znaleziono tytułu: " + title);
     }
 }
