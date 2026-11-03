@@ -19,26 +19,18 @@ public class TerminalInterface {
         }
     }
 
-    public void processReturnItem() {
+    public void processReturnItem() throws TitleNotFoundException, AlreadyReturnedException {
         showItems(true);
         System.out.println("Podaj tytuł do zwrotu: ");
         String title = scanner.nextLine();
-        try {
-            libraryService.returnItem(title);
-        } catch (TitleNotFoundException | AlreadyReturnedException e) {
-            System.err.println(e.getMessage());
-        }
+        libraryService.returnItem(title);
     }
 
-    public void processBorrowItem() {
+    public void processBorrowItem() throws TitleNotFoundException {
         showItems(false);
         System.out.println("Podaj tytuł do wypożyczenia: ");
         String title = scanner.nextLine();
-        try {
-            libraryService.borrowItem(title);
-        } catch (TitleNotFoundException | AlreadyBorrowedException e) {
-            System.err.println(e.getMessage());
-        }
+        libraryService.borrowItem(title);
     }
 
     public void start() {
@@ -51,14 +43,18 @@ public class TerminalInterface {
             choice = scanner.nextInt();
             scanner.nextLine();
 
-            switch (choice) {
-                case 1 -> showItems(false);
-                case 2 -> showItems(true);
-                case 3 -> processBorrowItem();
-                case 4 -> processReturnItem();
-                case 5 -> System.out.println("Książki w systemie: " + Book.getTotalBooks());
-                case 6 -> System.out.println("Filmy w systemie: " + Movie.getTotalMovies());
-                case 7 -> System.out.println("Koniec programu papa");
+            try {
+                switch (choice) {
+                    case 1 -> showItems(false);
+                    case 2 -> showItems(true);
+                    case 3 -> processBorrowItem();
+                    case 4 -> processReturnItem();
+                    case 5 -> System.out.println("Książki w systemie: " + Book.getTotalBooks());
+                    case 6 -> System.out.println("Filmy w systemie: " + Movie.getTotalMovies());
+                    case 7 -> System.out.println("Koniec programu papa");
+                }
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
         }
     }

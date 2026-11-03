@@ -32,26 +32,26 @@ public class LibraryService {
 
     public void borrowItem(String title) throws TitleNotFoundException {
         LibraryItem item = findByTitle(title);
-        if (item.isBorrowed()) {
-            throw new AlreadyBorrowedException("Tytul juz jest wypożyczony ");
+        if (item == null) {
+            throw new TitleNotFoundException("Nie znaleziono tytułu: " + title);
         }
         item.borrow();
     }
 
     public void returnItem(String title) throws TitleNotFoundException, AlreadyReturnedException {
         LibraryItem item = findByTitle(title);
-        if (!item.isBorrowed()) {
-            throw new AlreadyReturnedException("Tytul juz jest zwrocony ");
+        if (item == null) {
+            throw new TitleNotFoundException("Nie znaleziono tytułu: " + title);
         }
         item.returnItem();
     }
 
-    private LibraryItem findByTitle(String title) throws TitleNotFoundException {
+    private LibraryItem findByTitle(String title) {
         for (LibraryItem item : items) {
             if (item != null && item.getTitle().equals(title)) {
                 return item;
             }
         }
-        throw new TitleNotFoundException("Nie znaleziono tytułu: " + title);
+        return null;
     }
 }
