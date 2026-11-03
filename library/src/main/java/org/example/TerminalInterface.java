@@ -25,7 +25,7 @@ public class TerminalInterface {
         String title = scanner.nextLine();
         try {
             libraryService.returnItem(title);
-        } catch (TitleNotFoundException | BookAlreadyReturnedException e) {
+        } catch (TitleNotFoundException | AlreadyReturnedException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -36,7 +36,7 @@ public class TerminalInterface {
         String title = scanner.nextLine();
         try {
             libraryService.borrowItem(title);
-        } catch (TitleNotFoundException | BookAlreadyBorrowedException e) {
+        } catch (TitleNotFoundException | AlreadyBorrowedException e) {
             System.err.println(e.getMessage());
         }
     }
