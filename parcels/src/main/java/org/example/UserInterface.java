@@ -74,19 +74,17 @@ public class UserInterface {
         System.out.println("Podaj mase paczki: ");
         int weightGrams = scanner.nextInt();
 
+        try {
+            Parcel parcel = new Parcel(id, recipient, weightGrams);
+            boolean add = shipmentManager.addShipment(parcel);
 
-        if (weightGrams <= 0) {
-            System.out.println("Waga paczki musi być dodatnia");
-            return;
-        }
-
-        Parcel parcel = new Parcel(id, recipient, weightGrams);
-        boolean add = shipmentManager.addShipment(parcel);
-
-        if (add) {
-            System.out.println("Pomyślnie dodano");
-        } else {
-            System.out.println("Nie udało się dodac, zajęte ID");
+            if (add) {
+                System.out.println("Pomyślnie dodano");
+            } else {
+                System.out.println("Nie udało się dodać, id jest zajęte");
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println("Nie udało się utworzyć paczki: " + e.getMessage());
         }
     }
 
@@ -110,12 +108,18 @@ public class UserInterface {
         scanner.nextLine();
         System.out.println("Podaj ID");
         String id = scanner.nextLine();
-        boolean sent = shipmentManager.sendShipment(id);
 
-        if (sent) {
-            System.out.println("Pomyślnie nadano");
-        } else {
-            System.out.println("ID nie istnieje lub przesyłka była nadana");
+        try {
+
+            boolean sent = shipmentManager.sendShipment(id);
+
+            if (sent) {
+                System.out.println("Pomyślnie nadano");
+            } else {
+                System.out.println("ID nie istnieje lub przesyłka była nadana");
+            }
+        } catch (AlreadySentException e) {
+            System.err.println(e.getMessage());
         }
     }
 

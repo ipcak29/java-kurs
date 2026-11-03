@@ -35,11 +35,17 @@ public class ShipmentManager {
 
     private final List<String> sentHistory = new ArrayList<>();
 
-    public boolean sendShipment(String id) {
+    public boolean sendShipment(String id) throws AlreadySentException {
         Shipment shipment = findById(id);
-        if (shipment == null || shipment.isSent()) {
+
+        if (shipment == null) {
             return false;
         }
+
+        if (shipment.isSent()) {
+            throw new AlreadySentException("Ta przesyłka była już nadana");
+        }
+
         shipment.markSent();
         sentHistory.add("Nadano " + shipment.getId() + " do " + shipment.getRecipient());
         return true;
