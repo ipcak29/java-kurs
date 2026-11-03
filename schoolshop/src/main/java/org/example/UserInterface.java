@@ -33,12 +33,10 @@ public class UserInterface {
         System.out.println("Podaj ilość: ");
         int quantity = onlyInt(scanner);
 
-        boolean added = shopManager.addToCart(code, quantity);
-
-        if (added) {
-            System.out.println("Produkt dodano do koszyka");
-        } else {
-            System.out.println("Nie udało się dodać produktu");
+        try {
+            shopManager.addToCart(code, quantity);
+        } catch (IllegalArgumentException | InsufficientStockException e) {
+            System.err.println(e.getMessage());
         }
     }
 

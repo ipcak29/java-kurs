@@ -15,7 +15,7 @@ public class ShopManager {
         return shoppingCart.getItems();
     }
 
-    public boolean addToCart(String code, int quantity) {
+    public boolean addToCart(String code, int quantity) throws InsufficientStockException {
         Product product = productCatalog.findProduct(code);
 
         if (product == null) {
@@ -54,21 +54,21 @@ public class ShopManager {
         shoppingCart.clearCart();
     }
 
-    public boolean purchase(){
-        Map<String, Integer>cartItems =shoppingCart.getItems();
-        if (cartItems.isEmpty()){
+    public boolean purchase() {
+        Map<String, Integer> cartItems = shoppingCart.getItems();
+        if (cartItems.isEmpty()) {
             return false;
         }
-        for (String code : cartItems.keySet()){
+        for (String code : cartItems.keySet()) {
             Product product = productCatalog.findProduct(code);
             int quantity = cartItems.get(code);
 
-            if(product.getStock() < quantity){
+            if (product.getStock() < quantity) {
                 return false;
             }
         }
 
-        for (String code : cartItems.keySet()){
+        for (String code : cartItems.keySet()) {
             Product product = productCatalog.findProduct(code);
             int quantity = cartItems.get(code);
             product.lowerStock(quantity);

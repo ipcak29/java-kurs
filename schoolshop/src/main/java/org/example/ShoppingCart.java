@@ -6,11 +6,17 @@ import java.util.Map;
 public class ShoppingCart {
     private final Map<String, Integer> cart = new HashMap<>();
 
-    public boolean addProduct(Product product, int quantity) {
+    public boolean addProduct(Product product, int quantity) throws InsufficientStockException {
         int currentQuant = cart.getOrDefault(product.getCode(), 0);
-        if (quantity <= 0 || currentQuant + quantity > product.getStock()) {
-            return false;
+
+        if (quantity < 1) {
+            throw new IllegalArgumentException("liczba sztuk nie może być mnniejsza od 1");
         }
+
+        if (currentQuant + quantity > product.getStock()) {
+            throw new InsufficientStockException("liczba sztuk przekracza ilość w magazynie");
+        }
+
         cart.put(product.getCode(), currentQuant + quantity);
         return true;
     }
