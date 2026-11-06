@@ -38,25 +38,39 @@ public class Stack {
         return false;
     }
 
-    public void remove(int value){
-        if(head == null){
+    public void remove(int value) {
+        if (head == null) {
             return;
         }
 
-        if(head.getValue() == value){
+        if (head.getValue() == value) {
             head = head.getNext();
             return;
         }
 
         Node temp = head;
 
-        while(temp.getNext() != null){
-            if (temp.getNext().getValue() == value){
+        while (temp.getNext() != null) {
+            if (temp.getNext().getValue() == value) {
                 temp.setNext(temp.getNext().getNext());
                 return;
             }
             temp = temp.getNext();
         }
     }
+
+    public void printAll() {
+        Node temp = head;
+
+        while (temp != null) {
+            System.out.println(temp.getValue());
+            temp = temp.getNext();
+        }
+    }
+
+
+
 }
-//chcemy dodać do naszego stacku metode remove(3)  usunie nawet z wnętrza stacku noda z wartością 3
+// addFirst (dodająca element na poczatku stacka),
+// removeAll (usuwająca wszystkie wystąpienia wartośći).
+// Zauważmy że dodając metode addFirst możemy odtworzyć działanie kolejki FIFO
