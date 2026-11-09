@@ -68,9 +68,27 @@ public class Stack {
         }
     }
 
+    public void addFirst(int value) {
+        Node newNode = new Node(value);
+        newNode.setNext(head);
+        head = newNode;
+    }
 
+    public void removeAll(int value) {
+        while (head != null && head.getValue() == value) {
+            head = head.getNext();
+        }
 
+        Node temp = head;
+
+        while (temp != null && temp.getNext() != null) {
+            if (temp.getNext().getValue() == value) {
+                temp.setNext(temp.getNext().getNext());
+            } else {
+                temp = temp.getNext();
+            }
+        }
+    }
 }
-// addFirst (dodająca element na poczatku stacka),
 // removeAll (usuwająca wszystkie wystąpienia wartośći).
 // Zauważmy że dodając metode addFirst możemy odtworzyć działanie kolejki FIFO
