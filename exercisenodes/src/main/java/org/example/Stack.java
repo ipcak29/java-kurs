@@ -1,32 +1,32 @@
 package org.example;
 
-public class Stack {
-    private Node head;
+public class Stack<M> {
+    Node<M> head;
 
-    public Stack(Node head) {
-        this.head = head;
+    public Stack() {
+        head = null;
     }
 
-    public void push(int value) {
-        Node newNode = new Node(value);
+    public void push(M value) {
+        Node<M> newNode = new Node<>(value);
 
         newNode.setNext(head);
         head = newNode;
     }
 
-    public int pop() {
+    public M pop() {
         if (head == null) {
             throw new IllegalStateException("Stack jest pusty");
         }
 
-        int value = head.getValue();
+        M value = head.getValue();
         head = head.getNext();
 
         return value;
     }
 
-    public boolean contains(int value) {
-        Node temp = head;
+    public boolean contains(M value) {
+        Node<M> temp = head;
 
         while (temp != null) {
 
@@ -38,7 +38,7 @@ public class Stack {
         return false;
     }
 
-    public void remove(int value) {
+    public void remove(M value) {
         if (head == null) {
             return;
         }
@@ -48,7 +48,7 @@ public class Stack {
             return;
         }
 
-        Node temp = head;
+        Node<M> temp = head;
 
         while (temp.getNext() != null) {
             if (temp.getNext().getValue() == value) {
@@ -60,7 +60,7 @@ public class Stack {
     }
 
     public void printAll() {
-        Node temp = head;
+        Node<M> temp = head;
 
         while (temp != null) {
             System.out.println(temp.getValue());
@@ -68,18 +68,18 @@ public class Stack {
         }
     }
 
-    public void addFirst(int value) {
-        Node newNode = new Node(value);
+    public void addFirst(M value) {
+        Node<M> newNode = new Node<>(value);
         newNode.setNext(head);
         head = newNode;
     }
 
-    public void removeAll(int value) {
+    public void removeAll(M value) {
         while (head != null && head.getValue() == value) {
             head = head.getNext();
         }
 
-        Node temp = head;
+        Node<M> temp = head;
 
         while (temp != null && temp.getNext() != null) {
             if (temp.getNext().getValue() == value) {
@@ -90,5 +90,6 @@ public class Stack {
         }
     }
 }
-// removeAll (usuwająca wszystkie wystąpienia wartośći).
-// Zauważmy że dodając metode addFirst możemy odtworzyć działanie kolejki FIFO
+// : przerobić Stack na typy generyczne,
+// stworzyc dwa stacki jesden dla String,
+// Jeden dla classy Pair<Long, Intger>
