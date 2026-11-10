@@ -9,14 +9,6 @@ public class Pair<T, E> {
         this.value = secondElem;
     }
 
-    public T getKey() {
-        return key;
-    }
-
-    public E getValue() {
-        return value;
-    }
-
     @Override
     public String toString(){
         return "(" + key + " " + value + ")";

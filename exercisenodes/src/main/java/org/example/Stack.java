@@ -90,6 +90,3 @@ public class Stack<M> {
         }
     }
 }
-// : przerobić Stack na typy generyczne,
-// stworzyc dwa stacki jesden dla String,
-// Jeden dla classy Pair<Long, Intger>
