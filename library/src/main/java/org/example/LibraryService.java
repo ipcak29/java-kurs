@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Optional;
+
 public class LibraryService {
     private static final int MAX_ITEMS = 50;
     private final LibraryItem[] items = new LibraryItem[MAX_ITEMS];
@@ -31,27 +33,25 @@ public class LibraryService {
     }
 
     public void borrowItem(String title) throws TitleNotFoundException {
-        LibraryItem item = findByTitle(title);
-        if (item == null) {
-            throw new TitleNotFoundException("Nie znaleziono tytułu: " + title);
-        }
+        LibraryItem item = findByTitle(title).orElseThrow(() ->
+                new TitleNotFoundException("Nie znaleziono tytułu: " + title));
+
         item.borrow();
     }
 
-    public void returnItem(String title) throws TitleNotFoundException, AlreadyReturnedException {
-        LibraryItem item = findByTitle(title);
-        if (item == null) {
-            throw new TitleNotFoundException("Nie znaleziono tytułu: " + title);
-        }
+    public void returnItem(String title) throws AlreadyReturnedException {
+        LibraryItem item = findByTitle(title).orElseThrow(() ->
+                new RuntimeException("Nie znaleziono tytułu: " + title));
+
         item.returnItem();
     }
 
-    private LibraryItem findByTitle(String title) {
+    private Optional<LibraryItem> findByTitle(String title) {
         for (LibraryItem item : items) {
             if (item != null && item.getTitle().equals(title)) {
-                return item;
+                return Optional.of(item);
             }
         }
-        return null;
+        return Optional.empty();
     }
 }
