@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -94,12 +95,15 @@ public class UserInterface {
         scanner.nextLine();
         System.out.println("Podaj ID");
         String id = scanner.nextLine();
-        Shipment shipment = shipmentManager.findById(id);
 
-        if (shipment == null) {
+        Optional<Shipment> result = shipmentManager.findById(id);
+
+        if (result.isEmpty()) {
             System.out.println("Nie odnaleziono przesyłki");
             return;
         }
+
+        Shipment shipment = result.get();
 
         System.out.printf("ID: %s%nOdbiorca: %s%n%s%nKoszt: %d gr%nNadana: %b%n",
                 shipment.getId(), shipment.getRecipient(), shipment.getDescription(), shipment.calculateCost(),
