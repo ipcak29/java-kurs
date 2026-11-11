@@ -14,9 +14,9 @@ public class ShipmentManager {
         return true;
     }
 
-    public Shipment findById(String id) {
+    public Optional<Shipment> findById(String id) {
         String normalizedId = id.trim().toUpperCase();
-        return shipments.get(normalizedId);
+        return Optional.ofNullable(shipments.get(normalizedId));
     }
 
     public int calculateUnsentCost() {
@@ -36,12 +36,18 @@ public class ShipmentManager {
     private final List<String> sentHistory = new ArrayList<>();
 
     public boolean sendShipment(String id) {
-        Shipment shipment = findById(id);
-        if (shipment == null || shipment.isSent()) {
+        Optional<Shipment> result = findById(id);
+        if (result.isEmpty()) {
             return false;
         }
+        Shipment shipment = result.get();
+
+        if (shipment.isSent()) {
+            return false;
+        }
+
         shipment.markSent();
-        sentHistory.add("Nadano " + shipment.getId() + " do " + shipment.getRecipient());
+        sentHistory.add("Nadano " + shipment.getId() + " do" + shipment.getRecipient());
         return true;
     }
 
@@ -51,6 +57,7 @@ public class ShipmentManager {
 
     public Set<String> uniqueRecipient() {
         Set<String> uniqueRecipient = new HashSet<>();
+
         for (Shipment shipment : shipments.values()) {
             String normalizedRecipient = shipment.getRecipient().trim().toLowerCase();
             uniqueRecipient.add(normalizedRecipient);
@@ -59,12 +66,20 @@ public class ShipmentManager {
     }
 
     public boolean deleteNotSent(String id) {
-        Shipment shipment = findById(id);
-        if (shipment == null || shipment.isSent()) {
+        Optional<Shipment> result = findById(id);
+
+        if (result.isEmpty()) {
             return false;
-        } else {
-            shipments.remove(id.trim().toUpperCase());
         }
+
+        Shipment shipment = result.get();
+
+        if (shipment.isSent()) {
+            return false;
+        }
+
+        String normalizedId = id.trim().toUpperCase();
+        shipments.remove(normalizedId);
         return true;
     }
 }
