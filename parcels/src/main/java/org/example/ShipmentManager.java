@@ -66,20 +66,9 @@ public class ShipmentManager {
     }
 
     public boolean deleteNotSent(String id) {
-        Optional<Shipment> result = findById(id);
-
-        if (result.isEmpty()) {
-            return false;
-        }
-
-        Shipment shipment = result.get();
-
-        if (shipment.isSent()) {
-            return false;
-        }
-
-        String normalizedId = id.trim().toUpperCase();
-        shipments.remove(normalizedId);
-        return true;
+        return findById(id)
+                .filter(shipment -> !shipment.isSent())
+                .map(shipment -> shipments.remove(id.trim().toUpperCase()) != null)
+                .orElse(false);
     }
 }
