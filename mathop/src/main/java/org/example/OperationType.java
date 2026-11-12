@@ -6,12 +6,6 @@ public enum OperationType {
     MULTIPLY("*", (a, b) -> a * b),
     DIVISION("/", OperationType::division);
 
-    private static int division(int a, int b) {
-        if (b == 0) {
-            throw new ArithmeticException("Nie można dzielić przez zero");
-        }
-        return a / b;
-    }
 
     private final String symbol;
     private final MathOperation operation;
@@ -36,5 +30,11 @@ public enum OperationType {
             }
         }
         throw new IllegalArgumentException("Nieznany symbol: " + symbol);
+    }
+    private static int division(int a, int b) {
+        if (b == 0) {
+            throw new ArithmeticException("Nie można dzielić przez zero");
+        }
+        return a / b;
     }
 }
