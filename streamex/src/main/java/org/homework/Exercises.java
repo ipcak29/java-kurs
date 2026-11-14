@@ -20,6 +20,27 @@ public class Exercises {
     private static final List<Holding> holdings = new HoldingGenerator().generate();
 
     public static void main(String[] args) {
+//        System.out.println(getHoldingsWhereAreCompanies());
+//        System.out.println(getHoldingNames());
+//        System.out.println(getHoldingNamesAsString());
+//        System.out.println(getCompaniesAmount());
+//        System.out.println(getAllUserAmount());
+//
+//        LinkedList<String> companyNames = getAllCompaniesNamesAsLinkedList();
+//        System.out.println(companyNames);
+//        System.out.println(getUsersForPredicate(user -> user.getSex() == Sex.WOMAN));
+//        System.out.println( getRichestWoman());
+//        System.out.println(getFirstNCompany(3));
+
+//        getUserPerCompany().forEach((company, users) ->
+//                System.out.println(company + ": " + users.size() + " użytkowników"));
+//        System.out.println(getUser(user -> true).getFirstName());
+//        System.out.println(createAccountsMap().keySet());
+//        System.out.println(getUserNames());
+//        showAllUser();
+//        System.out.println(getCurenciesSet());
+//        executeForEachCompany(company -> System.out.println(company.getName()));
+
     }
 
     /**
@@ -128,14 +149,18 @@ public class Exercises {
      * Zwraca nazwy pierwszych N firm. Kolejność nie ma znaczenia.
      */
     private static Set<String> getFirstNCompany(final int n) {
-        return null;
+        return getCompanyStream()
+                .limit(n)
+                .map(Company::getName)
+                .collect(Collectors.toSet());
     }
 
     /**
      * Zwraca mapę firm, gdzie kluczem jest jej nazwa a wartością lista pracowników.
      */
     public static Map<String, List<User>> getUserPerCompany() {
-        return null;
+        return getCompanyStream()
+                .collect(Collectors.toMap(Company::getName, Company::getUsers));
     }
 
     /**
@@ -143,21 +168,28 @@ public class Exercises {
      * wyjątek IllegalArgumentException.
      */
     public static User getUser(final Predicate<User> predicate) {
-        return null;
+        return getUserStream()
+                .filter(predicate)
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     /**
      * Zwraca mapę rachunków, gdzie kluczem jest numer rachunku, a wartością ten rachunek.
      */
     public static Map<String, Account> createAccountsMap() {
-        return null;
+        return getAccoutStream()
+                .collect(Collectors.toMap(Account::getNumber, account -> account));
     }
 
     /**
      * Zwraca listę wszystkich imion w postaci Stringa, gdzie imiona oddzielone są spacją i nie zawierają powtórzeń.
      */
     public static String getUserNames() {
-        return null;
+        return getUserStream()
+                .map(User::getFirstName)
+                .distinct()
+                .collect(Collectors.joining(" "));
     }
 
     /**
@@ -165,13 +197,20 @@ public class Exercises {
      * Zosia Psikuta, Zenon Kucowski, Zenek Jawowy ... Alfred Pasibrzuch, Adam Wojcik
      */
     public static void showAllUser() {
+        System.out.println(getUserStream()
+                .map(user -> user.getFirstName() + " " + user.getLastName())
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.joining(", "))
+        );
     }
 
     /**
      * Zwraca zbiór walut w jakich są rachunki.
      */
     public static Set<Currency> getCurenciesSet() {
-        return null;
+        return getAccoutStream()
+                .map(Account::getCurrency)
+                .collect(Collectors.toSet());
     }
 
     /**
