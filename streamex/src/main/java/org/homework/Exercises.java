@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 public class Exercises {
 
     private static final List<Holding> holdings = new HoldingGenerator().generate();
+    private static final List<Integer> numbers = Arrays.asList(1,2,3,10,15,20);
 
     public static void main(String[] args) {
 //        System.out.println(getHoldingsWhereAreCompanies());
@@ -41,7 +42,21 @@ public class Exercises {
 //        System.out.println(getCurenciesSet());
 //        executeForEachCompany(company -> System.out.println(company.getName()));
 
+        ////exercise7
+        Predicate<Integer> even = number -> number % 2 == 0;
+        System.out.println(filterNumbers(numbers, even));
     }
+
+    public static List<Integer>filterNumbers(
+            List<Integer> numbers,
+            Predicate<Integer> predicate){
+            return numbers.stream()
+                    .filter(predicate)
+                    .collect(Collectors.toList());
+    }
+
+
+
 
     /**
      * Napisz metodę, która zwróci liczbę holdingów, w których jest przynajmniej jedna firma.
