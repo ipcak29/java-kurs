@@ -52,7 +52,7 @@ public class Exercises {
         Function<String, String> deleteSpacesAndUpperCase = deleteSpaces.andThen(upperCase);
         System.out.println(deleteSpacesAndUpperCase.apply(" hello world "));
     }
-
+////filtrowanie
     public static List<Integer> filterNumbers(
             List<Integer> numbers,
             Predicate<Integer> predicate) {
