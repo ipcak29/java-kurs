@@ -10,6 +10,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,7 +19,7 @@ import java.util.stream.Stream;
 public class Exercises {
 
     private static final List<Holding> holdings = new HoldingGenerator().generate();
-    private static final List<Integer> numbers = Arrays.asList(1,2,3,10,15,20);
+    private static final List<Integer> numbers = Arrays.asList(1, 2, 3, 10, 15, 20);
 
     public static void main(String[] args) {
 //        System.out.println(getHoldingsWhereAreCompanies());
@@ -45,18 +46,20 @@ public class Exercises {
         ////exercise7
         Predicate<Integer> even = number -> number % 2 == 0;
         System.out.println(filterNumbers(numbers, even));
+
+        Function<String, String> deleteSpaces = String::trim;
+        Function<String, String> upperCase = String::toUpperCase;
+        Function<String, String> deleteSpacesAndUpperCase = deleteSpaces.andThen(upperCase);
+        System.out.println(deleteSpacesAndUpperCase.apply(" hello world "));
     }
 
-    public static List<Integer>filterNumbers(
+    public static List<Integer> filterNumbers(
             List<Integer> numbers,
-            Predicate<Integer> predicate){
-            return numbers.stream()
-                    .filter(predicate)
-                    .collect(Collectors.toList());
+            Predicate<Integer> predicate) {
+        return numbers.stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
     }
-
-
-
 
     /**
      * Napisz metodę, która zwróci liczbę holdingów, w których jest przynajmniej jedna firma.
