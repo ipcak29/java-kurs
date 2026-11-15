@@ -44,13 +44,32 @@ public class Exercises {
 //        executeForEachCompany(company -> System.out.println(company.getName()));
 
         ////exercise7
-        Predicate<Integer> even = number -> number % 2 == 0;
-        System.out.println(filterNumbers(numbers, even));
+//        Predicate<Integer> even = number -> number % 2 == 0;
+//        System.out.println(filterNumbers(numbers, even));
+//
+//        Function<String, String> deleteSpaces = String::trim;
+//        Function<String, String> upperCase = String::toUpperCase;
+//        Function<String, String> deleteSpacesAndUpperCase = deleteSpaces.andThen(upperCase);
+//        System.out.println(deleteSpacesAndUpperCase.apply(" hello world "));
 
-        Function<String, String> deleteSpaces = String::trim;
-        Function<String, String> upperCase = String::toUpperCase;
-        Function<String, String> deleteSpacesAndUpperCase = deleteSpaces.andThen(upperCase);
-        System.out.println(deleteSpacesAndUpperCase.apply(" hello world "));
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("Jason", 18, "Kotłownia"));
+        employees.add(new Employee("Adams", 26, "Kotłownia"));
+        employees.add(new Employee("Peter", 33, "Wózkowy"));
+        employees.add(new Employee("Angel", 23, "Stołówka"));
+
+        List<String> stremEmployees = employees.stream()
+                .filter(employee -> employee.getAge() > 25)
+                .map(Employee::getName)
+                .sorted()
+                .toList();
+
+        Map<String, List<Employee>> employeesByDepartment = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
+
+        System.out.println(employeesByDepartment);
+        System.out.println(stremEmployees);
+
     }
 ////filtrowanie
     public static List<Integer> filterNumbers(
