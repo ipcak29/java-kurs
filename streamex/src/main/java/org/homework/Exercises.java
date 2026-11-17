@@ -52,26 +52,38 @@ public class Exercises {
 //        Function<String, String> deleteSpacesAndUpperCase = deleteSpaces.andThen(upperCase);
 //        System.out.println(deleteSpacesAndUpperCase.apply(" hello world "));
 
-        List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee("Jason", 18, "Kotłownia"));
-        employees.add(new Employee("Adams", 26, "Kotłownia"));
-        employees.add(new Employee("Peter", 33, "Wózkowy"));
-        employees.add(new Employee("Angel", 23, "Stołówka"));
+        ////exercise8
+//        List<Employee> employees = new ArrayList<>();
+//        employees.add(new Employee("Jason", 18, "Kotłownia"));
+//        employees.add(new Employee("Adams", 26, "Kotłownia"));
+//        employees.add(new Employee("Peter", 33, "Wózkowy"));
+//        employees.add(new Employee("Angel", 23, "Stołówka"));
+//
+//        List<String> stremEmployees = employees.stream()
+//                .filter(employee -> employee.getAge() > 25)
+//                .map(Employee::getName)
+//                .sorted()
+//                .toList();
+//
+//        Map<String, List<Employee>> employeesByDepartment = employees.stream()
+//                .collect(Collectors.groupingBy(Employee::getDepartment));
+//
+//        System.out.println(employeesByDepartment);
+//        System.out.println(stremEmployees);
 
-        List<String> stremEmployees = employees.stream()
-                .filter(employee -> employee.getAge() > 25)
-                .map(Employee::getName)
+        ////exercise9
+        List<String> sentences = Arrays.asList("hello world", "java streams", "world of code");
+
+        String stremSentences = sentences.stream()
+                .flatMap(sentence -> Arrays.stream(sentence.split(" ")))
+                .distinct()
                 .sorted()
-                .toList();
+                .collect(Collectors.joining(","));
 
-        Map<String, List<Employee>> employeesByDepartment = employees.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment));
-
-        System.out.println(employeesByDepartment);
-        System.out.println(stremEmployees);
-
+        System.out.println(stremSentences);
     }
-////filtrowanie
+
+    /// /filtrowanie
     public static List<Integer> filterNumbers(
             List<Integer> numbers,
             Predicate<Integer> predicate) {
