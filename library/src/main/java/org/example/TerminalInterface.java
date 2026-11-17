@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TerminalInterface {
@@ -12,14 +13,12 @@ public class TerminalInterface {
 
     public void showItems(boolean borrowed) {
         LibraryItem[] result = libraryService.listItems(borrowed);
-        for (LibraryItem item : result) {
-            if (item != null) {
-                System.out.println(item);
-            }
-        }
+
+        Arrays.stream(result)
+                .forEach(System.out::println);
     }
 
-    public void processReturnItem() throws TitleNotFoundException, AlreadyReturnedException {
+    public void processReturnItem() throws AlreadyReturnedException {
         showItems(true);
         System.out.println("Podaj tytuł do zwrotu: ");
         String title = scanner.nextLine();
