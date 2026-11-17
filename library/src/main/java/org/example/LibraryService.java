@@ -18,20 +18,10 @@ public class LibraryService {
     }
 
     public LibraryItem[] listItems(boolean borrowed) {
-        LibraryItem[] result = new LibraryItem[MAX_ITEMS];
-
-        int i = 0;
-        for (LibraryItem item : items) {
-            if (item == null) {
-                continue;
-            }
-
-            if (item.isBorrowed() == borrowed) {
-                result[i] = item;
-                i++;
-            }
-        }
-        return result;
+        return Arrays.stream(items)
+                .filter(Objects::nonNull)
+                .filter(item -> item.isBorrowed() == borrowed)
+                .toArray(LibraryItem[]::new);
     }
 
     public void borrowItem(String title) throws TitleNotFoundException {
