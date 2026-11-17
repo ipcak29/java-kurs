@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 public class LibraryService {
@@ -47,11 +49,9 @@ public class LibraryService {
     }
 
     private Optional<LibraryItem> findByTitle(String title) {
-        for (LibraryItem item : items) {
-            if (item != null && item.getTitle().equals(title)) {
-                return Optional.of(item);
-            }
-        }
-        return Optional.empty();
+        return Arrays.stream(items)
+                .filter(Objects::nonNull)
+                .filter(item -> item.getTitle().equals(title))
+                .findFirst();
     }
 }
