@@ -53,34 +53,34 @@ public class Exercises {
 //        System.out.println(deleteSpacesAndUpperCase.apply(" hello world "));
 
         ////exercise8
-//        List<Employee> employees = new ArrayList<>();
-//        employees.add(new Employee("Jason", 18, "Kotłownia"));
-//        employees.add(new Employee("Adams", 26, "Kotłownia"));
-//        employees.add(new Employee("Peter", 33, "Wózkowy"));
-//        employees.add(new Employee("Angel", 23, "Stołówka"));
-//
-//        List<String> stremEmployees = employees.stream()
-//                .filter(employee -> employee.getAge() > 25)
-//                .map(Employee::getName)
-//                .sorted()
-//                .toList();
-//
-//        Map<String, List<Employee>> employeesByDepartment = employees.stream()
-//                .collect(Collectors.groupingBy(Employee::getDepartment));
-//
-//        System.out.println(employeesByDepartment);
-//        System.out.println(stremEmployees);
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("Jason", 18, "Kotłownia"));
+        employees.add(new Employee("Adams", 26, "Kotłownia"));
+        employees.add(new Employee("Peter", 33, "Wózkowy"));
+        employees.add(new Employee("Angel", 23, "Stołówka"));
+
+        List<String> stremEmployees = employees.stream()
+                .filter(employee -> employee.getAge() > 25)
+                .map(Employee::getName)
+                .sorted()
+                .toList();
+
+        Map<String, List<Employee>> employeesByDepartment = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
+
+        System.out.println(employeesByDepartment);
+        System.out.println(stremEmployees);
 
         ////exercise9
-        List<String> sentences = Arrays.asList("hello world", "java streams", "world of code");
-
-        String stremSentences = sentences.stream()
-                .flatMap(sentence -> Arrays.stream(sentence.split(" ")))
-                .distinct()
-                .sorted()
-                .collect(Collectors.joining(","));
-
-        System.out.println(stremSentences);
+//        List<String> sentences = Arrays.asList("hello world", "java streams", "world of code");
+//
+//        String stremSentences = sentences.stream()
+//                .flatMap(sentence -> Arrays.stream(sentence.split(" ")))
+//                .distinct()
+//                .sorted()
+//                .collect(Collectors.joining(","));
+//
+//        System.out.println(stremSentences);
     }
 
     /// /filtrowanie
@@ -125,8 +125,9 @@ public class Exercises {
      * Zwraca liczbę firm we wszystkich holdingach.
      */
     public static long getCompaniesAmount() {
-        return getCompanyStream()
-                .count();
+        return holdings.stream()
+                .mapToLong(holding -> holding.getCompanies().size())
+                .sum();
     }
 
 
@@ -134,7 +135,9 @@ public class Exercises {
      * Zwraca liczbę wszystkich pracowników we wszystkich firmach.
      */
     public static long getAllUserAmount() {
-        return getUserStream()
+        return holdings.stream()
+                .flatMap(holding -> holding.getCompanies().stream())
+                .flatMap(company -> company.getUsers().stream())
                 .count();
     }
 
@@ -228,7 +231,7 @@ public class Exercises {
      */
     public static Map<String, Account> createAccountsMap() {
         return getAccoutStream()
-                .collect(Collectors.toMap(Account::getNumber, account -> account));
+                .collect(Collectors.toMap(Account::getNumber, Function.identity()));
     }
 
     /**
