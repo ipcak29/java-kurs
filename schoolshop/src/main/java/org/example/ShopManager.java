@@ -36,14 +36,12 @@ public class ShopManager {
     }
 
     public int getTotalPriceInGrosze() {
-        Map<String, Integer> cart = shoppingCart.getItems();
-        int total = 0;
-        for (String code : cart.keySet()) {
-            Product product = productCatalog.findProduct(code);
-            int quantity = cart.get(code);
-            total += product.getPriceInGrosze() * quantity;
-        }
-        return total;
+        return shoppingCart.getItems().entrySet().stream()
+                .mapToInt(entry -> {
+                    Product product = productCatalog.findProduct(entry.getKey());
+                    return product.getPriceInGrosze() * entry.getValue();
+                })
+                .sum();
     }
 
     public Product findProduct(String code) {
@@ -54,21 +52,21 @@ public class ShopManager {
         shoppingCart.clearCart();
     }
 
-    public boolean purchase(){
-        Map<String, Integer>cartItems =shoppingCart.getItems();
-        if (cartItems.isEmpty()){
+    public boolean purchase() {
+        Map<String, Integer> cartItems = shoppingCart.getItems();
+        if (cartItems.isEmpty()) {
             return false;
         }
-        for (String code : cartItems.keySet()){
+        for (String code : cartItems.keySet()) {
             Product product = productCatalog.findProduct(code);
             int quantity = cartItems.get(code);
 
-            if(product.getStock() < quantity){
+            if (product.getStock() < quantity) {
                 return false;
             }
         }
 
-        for (String code : cartItems.keySet()){
+        for (String code : cartItems.keySet()) {
             Product product = productCatalog.findProduct(code);
             int quantity = cartItems.get(code);
             product.lowerStock(quantity);
