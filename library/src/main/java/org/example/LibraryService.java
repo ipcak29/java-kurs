@@ -1,5 +1,9 @@
 package org.example;
 
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
+
 public class LibraryService {
     private static final int MAX_ITEMS = 50;
     private final LibraryItem[] items = new LibraryItem[MAX_ITEMS];
@@ -14,46 +18,30 @@ public class LibraryService {
     }
 
     public LibraryItem[] listItems(boolean borrowed) {
-        LibraryItem[] result = new LibraryItem[MAX_ITEMS];
-
-        int i = 0;
-        for (LibraryItem item : items) {
-            if (item == null) {
-                continue;
-            }
-
-            if (item.isBorrowed() == borrowed) {
-                result[i] = item;
-                i++;
-            }
-        }
-        return result;
+        return Arrays.stream(items)
+                .filter(Objects::nonNull)
+                .filter(item -> item.isBorrowed() == borrowed)
+                .toArray(LibraryItem[]::new);
     }
 
-    public void borrowItem(String title) {
-        LibraryItem item = findByTitle(title);
-        if (item == null) {
-            System.out.println("Nie znaleziono tytułu");
-            return;
-        }
+    public void borrowItem(String title) throws TitleNotFoundException {
+        LibraryItem item = findByTitle(title).orElseThrow(() ->
+                new TitleNotFoundException("Nie znaleziono tytułu: " + title));
+
         item.borrow();
     }
 
-    public void returnItem(String title) {
-        LibraryItem item = findByTitle(title);
-        if (item == null) {
-            System.out.println("Nie znaleziono tytułu");
-            return;
-        }
+    public void returnItem(String title) throws AlreadyReturnedException {
+        LibraryItem item = findByTitle(title).orElseThrow(() ->
+                new RuntimeException("Nie znaleziono tytułu: " + title));
+
         item.returnItem();
     }
 
-    private LibraryItem findByTitle(String title) {
-        for (LibraryItem item : items) {
-            if (item != null && item.getTitle().equals(title)) {
-                return item;
-            }
-        }
-        return null;
+    private Optional<LibraryItem> findByTitle(String title) {
+        return Arrays.stream(items)
+                .filter(Objects::nonNull)
+                .filter(item -> item.getTitle().equals(title))
+                .findFirst();
     }
 }

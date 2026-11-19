@@ -23,17 +23,16 @@ public abstract class LibraryItem {
 
     public void borrow() {
         if (borrowed) {
-            System.out.println("Element jest wypozyczony");
-            return;
+            throw new AlreadyBorrowedException("Tytul juz jest wypożyczony ");
         }
+
         System.out.printf("Wypozyczono %s%n", title);
         borrowed = true;
     }
 
-    public void returnItem() {
+    public void returnItem() throws AlreadyReturnedException {
         if (!borrowed) {
-            System.out.println("Tytul dostepny");
-            return;
+            throw new AlreadyReturnedException("Tytul juz jest zwrocony ");
         }
         System.out.printf("Zwrócono %s%n", title);
         borrowed = false;
