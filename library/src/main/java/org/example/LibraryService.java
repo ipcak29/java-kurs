@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 public class LibraryService {
@@ -16,20 +18,10 @@ public class LibraryService {
     }
 
     public LibraryItem[] listItems(boolean borrowed) {
-        LibraryItem[] result = new LibraryItem[MAX_ITEMS];
-
-        int i = 0;
-        for (LibraryItem item : items) {
-            if (item == null) {
-                continue;
-            }
-
-            if (item.isBorrowed() == borrowed) {
-                result[i] = item;
-                i++;
-            }
-        }
-        return result;
+        return Arrays.stream(items)
+                .filter(Objects::nonNull)
+                .filter(item -> item.isBorrowed() == borrowed)
+                .toArray(LibraryItem[]::new);
     }
 
     public void borrowItem(String title) throws TitleNotFoundException {
@@ -47,11 +39,9 @@ public class LibraryService {
     }
 
     private Optional<LibraryItem> findByTitle(String title) {
-        for (LibraryItem item : items) {
-            if (item != null && item.getTitle().equals(title)) {
-                return Optional.of(item);
-            }
-        }
-        return Optional.empty();
+        return Arrays.stream(items)
+                .filter(Objects::nonNull)
+                .filter(item -> item.getTitle().equals(title))
+                .findFirst();
     }
 }
