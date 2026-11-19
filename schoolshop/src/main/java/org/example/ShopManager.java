@@ -54,6 +54,7 @@ public class ShopManager {
 
     public boolean purchase() {
         Map<String, Integer> cartItems = shoppingCart.getItems();
+
         if (cartItems.isEmpty()) {
             return false;
         }
