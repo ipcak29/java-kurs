@@ -54,6 +54,6 @@ public class Receipt {
 
     @Override
     public String toString() {
-        return owner + " " + accountBalance;
+        return "Owner: %s, Balance: %s".formatted(owner, accountBalance);
     }
 }

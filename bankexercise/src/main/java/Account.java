@@ -16,6 +16,6 @@ public class Account extends Receipt {
 
     @Override
     public String toString() {
-        return getPerson() + " " + getAccountBalance() + " " + rate;
+        return "Owner: %s, Balance: %s, Rate:%s".formatted(getPerson(), getAccountBalance(), rate);
     }
 }

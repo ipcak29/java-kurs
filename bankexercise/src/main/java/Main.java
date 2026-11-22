@@ -15,10 +15,9 @@ public class Main {
         accounts[2].transfer(accounts[0], 500.0);
         Account.changeRate(4.0);
 
-        for (Receipt receipt : accounts){
+        for (Receipt receipt : accounts) {
             receipt.update();
             System.out.println(receipt);
         }
-
     }
 }

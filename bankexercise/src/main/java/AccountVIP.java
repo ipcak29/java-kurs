@@ -40,6 +40,7 @@ public class AccountVIP extends Account {
 
     @Override
     public String toString() {
-        return getPerson() + " " + getAccountBalance() + " " + individualRate + " " + debtLimit;
+        return "Owner: %s, Balance: %s, Individual Rate:%s, Debt Limit:%s".formatted(getPerson(),
+                getAccountBalance(), individualRate, debtLimit);
     }
 }
