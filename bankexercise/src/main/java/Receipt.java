@@ -18,4 +18,20 @@ public class Receipt {
     public void setAccountBalance(double accountBalance) {
         this.accountBalance = accountBalance;
     }
+
+    public boolean deposit(double amount) {
+        if (amount > 0) {
+            accountBalance += amount;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean withdraw(double amount){
+        if (amount > 0 && accountBalance >= amount){
+            accountBalance -= amount;
+            return true;
+        }
+        return false;
+    }
 }
