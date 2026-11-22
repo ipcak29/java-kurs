@@ -27,11 +27,33 @@ public class Receipt {
         return false;
     }
 
-    public boolean withdraw(double amount){
-        if (amount > 0 && accountBalance >= amount){
+    public boolean withdraw(double amount) {
+        if (amount > 0 && accountBalance >= amount) {
             accountBalance -= amount;
             return true;
         }
         return false;
+    }
+
+    public boolean transfer(Receipt recipient, double amount) {
+        if (recipient == null || amount <= 0) {
+            return false;
+        } else if (accountBalance < amount) {
+            return false;
+        }
+        if( recipient.deposit(amount)){
+        accountBalance -= amount;
+        return true;
+        }
+        return false;
+    }
+
+    public void update(){
+        System.out.println("Basic receipt");
+    }
+
+    @Override
+    public String toString() {
+        return owner + " " + accountBalance;
     }
 }
