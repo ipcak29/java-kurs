@@ -36,19 +36,10 @@ public class Receipt {
     }
 
     public boolean transfer(Receipt recipient, double amount) {
-        if (recipient == null || amount <= 0) {
-            return false;
-        } else if (accountBalance < amount) {
-            return false;
-        }
-        if( recipient.deposit(amount)){
-        accountBalance -= amount;
-        return true;
-        }
-        return false;
+        return recipient != null && withdraw(amount) && recipient.deposit(amount);
     }
 
-    public void update(){
+    public void update() {
         System.out.println("Basic receipt");
     }
 

@@ -19,17 +19,7 @@ public class AccountVIP extends Account {
 
     @Override
     public boolean transfer(Receipt recipient, double amount) {
-        if (recipient == null || amount <= 0) {
-            return false;
-        } else if (getAccountBalance() - amount < debtLimit) {
-            return false;
-        }
-
-        if (recipient.deposit(amount)) {
-            setAccountBalance((getAccountBalance() - amount));
-            return true;
-        }
-        return false;
+        return recipient != null && withdraw(amount) && recipient.deposit(amount);
     }
 
     @Override
