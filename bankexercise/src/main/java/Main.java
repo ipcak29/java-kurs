@@ -12,7 +12,7 @@ public class Main {
 
         accounts[0].deposit(100.0);
         accounts[1].withdraw(200.0);
-        accounts[2].transfer(accounts[0], 500.0);
+        System.out.println(accounts[2].transfer(accounts[0], 500.0) ? "Dokonano przelew" : "Błąd przelewu");
         Account.changeRate(4.0);
 
         for (Receipt receipt : accounts) {
